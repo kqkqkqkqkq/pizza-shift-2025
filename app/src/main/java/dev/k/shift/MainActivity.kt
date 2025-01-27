@@ -12,11 +12,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ShiftTheme {
-                /**
-                 * Dependencies:
-                 * Retrofit, Room(for caching)?, Kotlinx-serialization,
-                 * Dagger+Hilt, Coroutines
-                 */
+
             }
         }
     }
