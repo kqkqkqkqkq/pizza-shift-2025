@@ -13,7 +13,7 @@ import retrofit2.http.Query
 
 
 /**
- * [API Documentation]()
+ * [API Documentation](https://shift-intensive.ru/api)
  */
 interface PizzaApi {
     @GET("/catalog")
