@@ -23,3 +23,4 @@ rootProject.name = "shift"
 include(":app")
 include(":pizza-api")
 include(":pizza-data")
+include("features:pizza-main")
