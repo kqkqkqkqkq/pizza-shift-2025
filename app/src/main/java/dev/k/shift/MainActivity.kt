@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import dagger.hilt.android.AndroidEntryPoint
 import dev.k.shift.ui.theme.ShiftTheme
+import dev.k.ui.MainScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -14,7 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ShiftTheme {
-
+                MainScreen()
             }
         }
     }

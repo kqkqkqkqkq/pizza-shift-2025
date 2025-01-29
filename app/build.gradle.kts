@@ -63,5 +63,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    implementation(project(":features:pizza-main:ui"))
     implementation(project(":pizza-api"))
+    implementation(project(":ui-kit"))
+
+//    include(":app")
+//    include(":pizza-api")
+//    include(":pizza-data")
+//    include(":features:pizza-main:ui")
+//    include(":features:pizza-main:domain")
+//    include(":ui-kit")
 }
