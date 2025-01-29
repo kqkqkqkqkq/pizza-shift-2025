@@ -4,12 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "dev.k.pizza_data"
+    namespace = "dev.k.ui_kit"
     compileSdk = 34
 
     defaultConfig {
         minSdk = 24
 
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -36,8 +37,4 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-
-    implementation(project(":pizza-api"))
-
-    implementation(libs.javax.inject)
 }

@@ -13,7 +13,6 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
-
 /**
  * [API Documentation](https://shift-intensive.ru/api)
  */
@@ -44,7 +43,6 @@ interface PizzaApi {
 fun createPizzaApi(
     baseUrl: String,
 ): PizzaApi = retrofit(baseUrl, Json).create()
-
 
 private fun retrofit(
     baseUrl: String,

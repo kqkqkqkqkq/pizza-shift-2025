@@ -20,6 +20,7 @@ retrofitAdaptersResult = "1.0.13"
 dagger = "2.51.1"
 okhttp = "4.12.0"
 coil = "2.6.0"
+javax-inject = "1"
 
 [libraries]
 # Retrofit
@@ -40,6 +41,9 @@ dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref =
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 dagger-main = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+# Annotation
+javax-inject = { module = "javax.inject:javax.inject", version.ref = "javax-inject" }
+
 # Coil
 coil-core = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
