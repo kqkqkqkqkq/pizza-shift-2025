@@ -18,19 +18,12 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
         buildConfigField("String", "PIZZA_API_BASE_URL", "\"https://shift-intensive.ru/api/pizza/\"")
-
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
     }
     compileOptions {
@@ -66,11 +59,4 @@ dependencies {
     implementation(project(":features:pizza-main:ui"))
     implementation(project(":pizza-api"))
     implementation(project(":ui-kit"))
-
-//    include(":app")
-//    include(":pizza-api")
-//    include(":pizza-data")
-//    include(":features:pizza-main:ui")
-//    include(":features:pizza-main:domain")
-//    include(":ui-kit")
 }
