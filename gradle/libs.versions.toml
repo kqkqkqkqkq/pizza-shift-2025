@@ -65,6 +65,6 @@ jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrai
 android-library = { id = "com.android.library", version.ref = "agp" }
 
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-serialization" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+#compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
