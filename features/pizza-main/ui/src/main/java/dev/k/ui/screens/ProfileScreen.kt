@@ -38,6 +38,4 @@ internal fun ProfileScreenContent(
             Text("Профиль")
         }
     }
-
-
 }
