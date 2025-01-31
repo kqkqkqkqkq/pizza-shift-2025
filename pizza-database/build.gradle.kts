@@ -1,10 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+//    alias(libs.plugins.androidx.room)
 }
 
 android {
-    namespace = "dev.k.pizza_data"
+    namespace = "dev.k.pizza_database"
     compileSdk = 34
 
     defaultConfig {
@@ -28,11 +30,7 @@ android {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 
-    implementation(project(":pizza-api"))
-    implementation(project(":pizza-database"))
-
-    implementation(libs.javax.inject)
 }

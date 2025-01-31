@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/features/pizza-main/ui-logic" />
             <option value="$PROJECT_DIR$/pizza-api" />
             <option value="$PROJECT_DIR$/pizza-data" />
+            <option value="$PROJECT_DIR$/pizza-database" />
             <option value="$PROJECT_DIR$/ui-kit" />
           </set>
         </option>

@@ -11,6 +11,71 @@ import dev.k.pizza_data.models.Pizza
 import dev.k.pizza_data.models.PizzaDough
 import dev.k.pizza_data.models.PizzaIngredient
 import dev.k.pizza_data.models.PizzaSize
+import dev.k.pizza_database.models.PizzaDBO
+import dev.k.pizza_database.models.PizzaDoughDBO
+import dev.k.pizza_database.models.PizzaIngredientDBO
+import dev.k.pizza_database.models.PizzaSizeDBO
+
+internal fun PizzaDBO.toPizza(): Pizza =
+    Pizza(
+        id = id.toString(),
+        name = name,
+        ingredients = ingredients.map { it.toPizzaIngredient() } ,
+        toppings = toppings.map { it.toPizzaIngredient() },
+        description = description,
+        sizes = sizes.map { it.toPizzaSize() },
+        doughs = doughs.map { it.toPizzaDough() },
+        calories = calories,
+        protein = protein,
+        totalFat = totalFat,
+        carbohydrates = carbohydrates,
+        sodium = sodium,
+        allergens = allergens,
+        isVegetarian = isVegetarian,
+        isGlutenFree = isGlutenFree,
+        isNew = isNew,
+        isHit = isHit,
+        img = img,
+    )
+
+internal fun PizzaIngredientDBO.toPizzaIngredient(): PizzaIngredient =
+    PizzaIngredient(name = name, cost = cost, img = img)
+
+internal fun PizzaSizeDBO.toPizzaSize(): PizzaSize =
+    PizzaSize(name = name, price = price)
+
+internal fun PizzaDoughDBO.toPizzaDough(): PizzaDough =
+    PizzaDough(name = name, price = price)
+
+internal fun Pizza.toPizzaDBO(): PizzaDBO =
+    PizzaDBO(
+        name = name,
+        ingredients = ingredients.map { it.toPizzaIngredientDBO() },
+        toppings = toppings.map { it.toPizzaIngredientDBO() },
+        description = description,
+        sizes = sizes.map { it.toPizzaSizeDBO() },
+        doughs = doughs.map { it.toPizzaDoughDBO() },
+        calories = calories,
+        protein = protein,
+        totalFat = totalFat,
+        carbohydrates = carbohydrates,
+        sodium = sodium,
+        allergens = allergens,
+        isVegetarian = isVegetarian,
+        isGlutenFree = isGlutenFree,
+        isNew = isNew,
+        isHit = isHit,
+        img = img,
+    )
+
+internal fun PizzaIngredient.toPizzaIngredientDBO(): PizzaIngredientDBO =
+    PizzaIngredientDBO(name = name, cost = cost, img = img)
+
+internal fun PizzaSize.toPizzaSizeDBO(): PizzaSizeDBO =
+    PizzaSizeDBO(name = name, price = price)
+
+internal fun PizzaDough.toPizzaDoughDBO(): PizzaDoughDBO =
+    PizzaDoughDBO(name = name, price = price)
 
 internal fun PizzaDTO.toPizza(): Pizza =
     Pizza(
