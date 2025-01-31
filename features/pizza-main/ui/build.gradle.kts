@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.kapt)
     alias(libs.plugins.kotlin.compose)
+//    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -43,6 +44,9 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
     implementation(libs.coil.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
+//    implementation(libs.kotlinx.serealization.json)
 
     implementation(project(":features:pizza-main:domain"))
     implementation(project(":ui-kit"))

@@ -12,12 +12,12 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 @HiltViewModel
-class MainScreenViewModel @Inject internal constructor(
+class PizzaScreenViewModel @Inject internal constructor(
     getCatalogUseCase: Provider<GetCatalogUseCase>,
 ): ViewModel() {
 
-    val state: StateFlow<MainScreenState> =
+    val state: StateFlow<PizzaScreenState> =
         getCatalogUseCase.get().invoke()
-            .map { MainScreenState.Content(it) }
-            .stateIn(viewModelScope, SharingStarted.Lazily, MainScreenState.Initial)
+            .map { PizzaScreenState.Content(it) }
+            .stateIn(viewModelScope, SharingStarted.Lazily, PizzaScreenState.Initial)
 }
