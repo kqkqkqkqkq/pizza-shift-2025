@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="11">
+      <module name="shift.domain" target="21" />
       <module name="shift.features.pizza-main-ui" target="21" />
     </bytecodeTargetLevel>
   </component>
