@@ -9,17 +9,11 @@ android {
 
     defaultConfig {
         minSdk = 24
-
-        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
     }
     compileOptions {
@@ -38,4 +32,6 @@ dependencies {
     implementation(libs.material)
 
     implementation(project(":pizza-api"))
+
+    implementation(libs.javax.inject)
 }
