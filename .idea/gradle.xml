@@ -13,8 +13,8 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/pizza-main" />
-            <option value="$PROJECT_DIR$/features/pizza-main/domain" />
             <option value="$PROJECT_DIR$/features/pizza-main/ui" />
+            <option value="$PROJECT_DIR$/features/pizza-main/ui-logic" />
             <option value="$PROJECT_DIR$/pizza-api" />
             <option value="$PROJECT_DIR$/pizza-data" />
             <option value="$PROJECT_DIR$/ui-kit" />
