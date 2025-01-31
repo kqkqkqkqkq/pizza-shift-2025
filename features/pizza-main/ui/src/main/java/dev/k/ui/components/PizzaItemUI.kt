@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import dev.k.domain.models.PizzaUI
+import dev.k.ui.navigation.Screen
 
 @Composable
 fun PizzaItemUI(
@@ -32,7 +33,9 @@ fun PizzaItemUI(
             .fillMaxWidth()
             .height(128.dp)
             .clickable {
-                TODO("Navigate to detail screen")
+                navController.currentBackStackEntry?.savedStateHandle?.set("pizzaUI", pizza)
+                navController.navigate(Screen.PIZZA_DETAIL)
+                println(pizza.toString())
             },
         horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically,
@@ -62,11 +65,11 @@ fun PizzaItemUI(
                 text = pizza.description,
                 color = Color.Black.copy(alpha = 0.6f),
                 fontSize = 12.sp,
-                fontWeight = FontWeight.Light,
+                fontWeight = FontWeight.Normal,
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "От ${pizza.sizes.first().price}",
+                text = "От ${pizza.sizes.first().price} ₽",
                 color = Color.Black,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
