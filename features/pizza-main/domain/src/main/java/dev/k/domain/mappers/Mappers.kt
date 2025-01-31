@@ -1,16 +1,16 @@
-package dev.k.pizza_data.mappers
+package dev.k.domain.mappers
 
-import dev.k.pizza_api.models.PizzaDTO
-import dev.k.pizza_api.models.PizzaDoughDTO
-import dev.k.pizza_api.models.PizzaIngredientDTO
-import dev.k.pizza_api.models.PizzaSizeDTO
+import dev.k.domain.models.PizzaDoughUI
+import dev.k.domain.models.PizzaIngredientUI
+import dev.k.domain.models.PizzaSizeUI
+import dev.k.domain.models.PizzaUI
 import dev.k.pizza_data.models.Pizza
 import dev.k.pizza_data.models.PizzaDough
 import dev.k.pizza_data.models.PizzaIngredient
 import dev.k.pizza_data.models.PizzaSize
 
-internal fun PizzaDTO.toPizza(): Pizza =
-    Pizza(
+internal fun Pizza.toPizza(): PizzaUI =
+    PizzaUI(
         id = id,
         name = name,
         ingredients = ingredients.map { it.toPizzaIngredient() },
@@ -31,11 +31,11 @@ internal fun PizzaDTO.toPizza(): Pizza =
         img = img,
     )
 
-internal fun PizzaIngredientDTO.toPizzaIngredient(): PizzaIngredient =
-    PizzaIngredient(name = name.toString(), cost = cost, img = img)
+internal fun PizzaIngredient.toPizzaIngredient(): PizzaIngredientUI =
+    PizzaIngredientUI(name = name, cost = cost, img = img)
 
-internal fun PizzaSizeDTO.toPizzaSize(): PizzaSize =
-    PizzaSize(name = name.toString(), price = price)
+internal fun PizzaSize.toPizzaSize(): PizzaSizeUI =
+    PizzaSizeUI(name = name, price = price)
 
-internal fun PizzaDoughDTO.toPizzaDough(): PizzaDough =
-    PizzaDough(name = name.toString(), price = price)
+internal fun PizzaDough.toPizzaDough(): PizzaDoughUI =
+    PizzaDoughUI(name = name, price = price)

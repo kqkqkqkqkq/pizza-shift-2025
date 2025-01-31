@@ -1,6 +1,6 @@
-package dev.k.pizza_data.models
+package dev.k.domain.models
 
-data class PizzaIngredient(
+data class PizzaIngredientUI(
     val name: String,
     val cost: Int,
     val img: String

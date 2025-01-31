@@ -1,10 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.kapt)
 }
 
 android {
-    namespace = "dev.k.pizza_data"
+    namespace = "dev.k.domain"
     compileSdk = 34
 
     defaultConfig {
@@ -28,10 +30,17 @@ android {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
-    implementation(project(":pizza-api"))
+    implementation(libs.kotlinx.coroutines.android)
 
-    implementation(libs.javax.inject)
+    compileOnly(libs.androidx.compose.runtime)
+//    api(libs.kotlinx.immutable)
+
+    api(project(":pizza-data"))
+
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.dagger.hilt.compiler)
+
 }

@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PizzaIngredientDTO(
     @SerialName("name") val name: Ingredient,
-    @SerialName("cont") val cont: Int,
+    @SerialName("cost") val cost: Int,
     @SerialName("img") val img: String
 )

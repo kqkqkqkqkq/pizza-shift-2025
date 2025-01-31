@@ -6,6 +6,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ResponseDTO<T>(
     @SerialName("success") val success: Boolean,
-    @SerialName("reason") val reason: String?,
+    @SerialName("reason") val reason: String? = null,
     @SerialName("catalog") val catalog: List<T>,
 )

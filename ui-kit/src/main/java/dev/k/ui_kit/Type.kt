@@ -1,4 +1,4 @@
-package dev.k.shift.ui.theme
+package dev.k.ui_kit
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
