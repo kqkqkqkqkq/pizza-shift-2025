@@ -9,15 +9,15 @@ import dev.k.pizza_data.models.PizzaDough
 import dev.k.pizza_data.models.PizzaIngredient
 import dev.k.pizza_data.models.PizzaSize
 
-internal fun Pizza.toPizza(): PizzaUI =
+internal fun Pizza.toPizzaUI(): PizzaUI =
     PizzaUI(
         id = id,
         name = name,
-        ingredients = ingredients.map { it.toPizzaIngredient() },
-        toppings = toppings.map { it.toPizzaIngredient() },
+        ingredients = ingredients.map { it.toPizzaIngredientUI() },
+        toppings = toppings.map { it.toPizzaIngredientUI() },
         description = description,
-        sizes = sizes.map { it.toPizzaSize() },
-        doughs = doughs.map { it.toPizzaDough() },
+        sizes = sizes.map { it.toPizzaSizeUI() },
+        doughs = doughs.map { it.toPizzaDoughUI() },
         calories = calories,
         protein = protein,
         totalFat = totalFat,
@@ -31,11 +31,11 @@ internal fun Pizza.toPizza(): PizzaUI =
         img = img,
     )
 
-internal fun PizzaIngredient.toPizzaIngredient(): PizzaIngredientUI =
+internal fun PizzaIngredient.toPizzaIngredientUI(): PizzaIngredientUI =
     PizzaIngredientUI(name = name, cost = cost, img = img)
 
-internal fun PizzaSize.toPizzaSize(): PizzaSizeUI =
+internal fun PizzaSize.toPizzaSizeUI(): PizzaSizeUI =
     PizzaSizeUI(name = name, price = price)
 
-internal fun PizzaDough.toPizzaDough(): PizzaDoughUI =
+internal fun PizzaDough.toPizzaDoughUI(): PizzaDoughUI =
     PizzaDoughUI(name = name, price = price)

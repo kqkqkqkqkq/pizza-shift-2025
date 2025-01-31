@@ -18,8 +18,6 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
         buildConfigField("String", "PIZZA_API_BASE_URL", "\"https://shift-intensive.ru/api/pizza/\"")
 
     }
@@ -27,10 +25,6 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
     }
     compileOptions {
@@ -54,6 +48,7 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     // Dagger-Hilt
     implementation(libs.dagger.hilt.android)
+    implementation(project(":ui-kit"))
     kapt(libs.dagger.hilt.compiler)
 
     implementation(libs.androidx.ui)
@@ -64,4 +59,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(project(":pizza-api"))
+    implementation(project(":features:pizza-main:ui"))
 }

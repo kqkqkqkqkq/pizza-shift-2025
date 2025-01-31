@@ -48,6 +48,6 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
 //    implementation(libs.kotlinx.serealization.json)
 
-    implementation(project(":features:pizza-main:domain"))
+    implementation(project(":features:pizza-main:ui-logic"))
     implementation(project(":ui-kit"))
 }

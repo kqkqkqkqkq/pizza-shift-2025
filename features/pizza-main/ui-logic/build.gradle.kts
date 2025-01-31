@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.k.domain"
+    namespace = "dev.k.ui_logic"
     compileSdk = 34
 
     defaultConfig {
@@ -43,5 +43,4 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
-
 }

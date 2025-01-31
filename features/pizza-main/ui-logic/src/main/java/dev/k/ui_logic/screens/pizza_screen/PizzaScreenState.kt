@@ -1,4 +1,4 @@
-package dev.k.domain
+package dev.k.ui_logic.screens.pizza_screen
 
 import dev.k.domain.models.PizzaUI
 
