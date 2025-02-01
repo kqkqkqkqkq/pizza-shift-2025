@@ -33,14 +33,12 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-
     implementation(libs.kotlinx.coroutines.android)
-
     compileOnly(libs.androidx.compose.runtime)
-
-    api(project(":pizza-data"))
 
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+
+    api(project(":pizza-data"))
 }

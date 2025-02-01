@@ -31,8 +31,8 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
 
+    implementation(libs.javax.inject)
+
     implementation(project(":pizza-api"))
     implementation(project(":pizza-database"))
-
-    implementation(libs.javax.inject)
 }

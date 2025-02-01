@@ -18,43 +18,31 @@ class CartScreenViewModel @Inject internal constructor(
     private val deleteFromCartUseCase: Provider<DeleteFromCartUseCase>,
 ): ViewModel() {
 
-//    private val _quantity = MutableStateFlow(emptyMap<PizzaUI, Int>())
-//    val quantity: StateFlow<Map<PizzaUI, Int>> = _quantity
-
     private val _quantity = MutableStateFlow(1)
     val quantity: StateFlow<Int> = _quantity
 
     private var _state = MutableStateFlow<Set<PizzaUI>>(emptySet())
     val state: StateFlow<Set<PizzaUI>> = _state
 
-    fun updateState() {
+    init {
+        updateState()
+    }
+
+    private fun updateState() {
         viewModelScope.launch {
             getCartUseCase.get().invoke().collect {
                 _state.value = it.toSet()
             }
         }
-//        _state.value.map {
-//            _quantity.value = _quantity.value.toMutableMap().apply {
-//                this[it] = 1
-//            }
-//        }
-    }
-    init {
-        updateState()
     }
 
     fun deleteFromCart(data: PizzaUI) {
         viewModelScope.launch {
             deleteFromCartUseCase.get().invoke(data)
-            updateState()
         }
+        updateState()
     }
 
-//    fun quantityChange(pizza: PizzaUI, amount: Int) {
-//        _quantity.value = _quantity.value.toMutableMap().apply {
-//            this[pizza] = amount
-//        }
-//    }
     fun quantityChange(amount: Int) {
         _quantity.value = amount
     }

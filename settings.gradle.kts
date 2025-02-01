@@ -21,9 +21,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "shift"
 include(":app")
-include(":pizza-api")
-include(":pizza-data")
 include(":features:pizza-main:ui")
 include(":features:pizza-main:ui-logic")
 include(":ui-kit")
+include(":pizza-data")
+include(":pizza-api")
 include(":pizza-database")

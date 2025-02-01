@@ -33,10 +33,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -55,7 +53,6 @@ import dev.k.ui.components.Header
 import dev.k.ui.navigation.Screen
 import dev.k.ui_kit.OrangeLight
 import dev.k.ui_logic.screens.pizza_detail_screen.PizzaDetailVewModel
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
@@ -280,7 +277,6 @@ fun AdditivesGrid(
     additives: List<PizzaIngredientUI>,
 ) {
     val selectedItems by viewModel.selectedAdditions.collectAsState()
-//    var selectedItems by remember { mutableStateOf(setOf<String>()) }
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),

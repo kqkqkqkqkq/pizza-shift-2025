@@ -144,7 +144,7 @@ fun OrderElement() {
             ) {
                 Text("Стоимость заказа:")
                 Spacer(modifier = Modifier.weight(1f))
-                Text("1200")
+                Text("1200 ₽")
             }
             TextButton(
                 modifier = Modifier
