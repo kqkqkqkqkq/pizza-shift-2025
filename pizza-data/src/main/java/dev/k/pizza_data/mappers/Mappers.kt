@@ -1,5 +1,6 @@
 package dev.k.pizza_data.mappers
 
+import android.util.Log
 import dev.k.pizza_api.models.Dough
 import dev.k.pizza_api.models.Ingredient
 import dev.k.pizza_api.models.PizzaDTO
@@ -12,70 +13,71 @@ import dev.k.pizza_data.models.PizzaDough
 import dev.k.pizza_data.models.PizzaIngredient
 import dev.k.pizza_data.models.PizzaSize
 import dev.k.pizza_database.models.PizzaDBO
-import dev.k.pizza_database.models.PizzaDoughDBO
-import dev.k.pizza_database.models.PizzaIngredientDBO
-import dev.k.pizza_database.models.PizzaSizeDBO
 
-internal fun PizzaDBO.toPizza(): Pizza =
-    Pizza(
+const val imagePrefix = "https://shift-intensive.ru/api"
+
+internal fun ingredients(s: String): List<PizzaIngredient> {
+    return s.split("|").map {
+        val item = it.split("!")
+        PizzaIngredient(name = item[0], cost = item[1].toInt(), img = item[2]) }
+}
+
+internal fun sizes(s: String): List<PizzaSize> {
+    return s.split("|").map {
+        val item = it.split("!")
+        PizzaSize(name = item[0], price = item[1].toInt()) }
+}
+
+internal fun doughs(s: String): List<PizzaDough> {
+    return s.split("|").map {
+        val item = it.split("!")
+        PizzaDough(name = item[0], price = item[1].toInt()) }
+}
+
+internal fun PizzaDBO.toPizza(): Pizza {
+    Log.e("map", this.toString())
+    return Pizza(
         id = id.toString(),
         name = name,
-        ingredients = ingredients.map { it.toPizzaIngredient() } ,
-        toppings = toppings.map { it.toPizzaIngredient() },
+        ingredients = ingredients(ingredients),
+        toppings = ingredients(toppings),
         description = description,
-        sizes = sizes.map { it.toPizzaSize() },
-        doughs = doughs.map { it.toPizzaDough() },
+        sizes = sizes(sizes),
+        doughs = doughs(doughs),
         calories = calories,
         protein = protein,
         totalFat = totalFat,
         carbohydrates = carbohydrates,
         sodium = sodium,
-        allergens = allergens,
+        allergens = allergens.split("|"),
         isVegetarian = isVegetarian,
         isGlutenFree = isGlutenFree,
         isNew = isNew,
         isHit = isHit,
         img = img,
     )
-
-internal fun PizzaIngredientDBO.toPizzaIngredient(): PizzaIngredient =
-    PizzaIngredient(name = name, cost = cost, img = img)
-
-internal fun PizzaSizeDBO.toPizzaSize(): PizzaSize =
-    PizzaSize(name = name, price = price)
-
-internal fun PizzaDoughDBO.toPizzaDough(): PizzaDough =
-    PizzaDough(name = name, price = price)
+}
 
 internal fun Pizza.toPizzaDBO(): PizzaDBO =
     PizzaDBO(
         name = name,
-        ingredients = ingredients.map { it.toPizzaIngredientDBO() },
-        toppings = toppings.map { it.toPizzaIngredientDBO() },
+        ingredients = ingredients.joinToString("|") { "${it.name}!${it.cost}!${it.img}" },
+        toppings = toppings.joinToString("|") { "${it.name}!${it.cost}!${it.img}" },
         description = description,
-        sizes = sizes.map { it.toPizzaSizeDBO() },
-        doughs = doughs.map { it.toPizzaDoughDBO() },
+        sizes = sizes.joinToString("|") { "${it.name}!${it.price}" },
+        doughs = doughs.joinToString("|") { "${it.name}!${it.price}" },
         calories = calories,
         protein = protein,
         totalFat = totalFat,
         carbohydrates = carbohydrates,
         sodium = sodium,
-        allergens = allergens,
+        allergens = allergens.joinToString("|"),
         isVegetarian = isVegetarian,
         isGlutenFree = isGlutenFree,
         isNew = isNew,
         isHit = isHit,
         img = img,
     )
-
-internal fun PizzaIngredient.toPizzaIngredientDBO(): PizzaIngredientDBO =
-    PizzaIngredientDBO(name = name, cost = cost, img = img)
-
-internal fun PizzaSize.toPizzaSizeDBO(): PizzaSizeDBO =
-    PizzaSizeDBO(name = name, price = price)
-
-internal fun PizzaDough.toPizzaDoughDBO(): PizzaDoughDBO =
-    PizzaDoughDBO(name = name, price = price)
 
 internal fun PizzaDTO.toPizza(): Pizza =
     Pizza(
@@ -96,11 +98,11 @@ internal fun PizzaDTO.toPizza(): Pizza =
         isGlutenFree = isGlutenFree,
         isNew = isNew,
         isHit = isHit,
-        img = img,
+        img = imagePrefix + img,
     )
 
 internal fun PizzaIngredientDTO.toPizzaIngredient(): PizzaIngredient =
-    PizzaIngredient(name = ingredientMap[name].toString(), cost = cost, img = img)
+    PizzaIngredient(name = ingredientMap[name].toString(), cost = cost, img = imagePrefix + img)
 
 internal fun PizzaSizeDTO.toPizzaSize(): PizzaSize =
     PizzaSize(name = sizeMap[name].toString(), price = price)

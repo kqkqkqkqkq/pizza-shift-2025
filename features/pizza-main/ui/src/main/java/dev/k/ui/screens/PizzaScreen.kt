@@ -22,6 +22,7 @@ import dev.k.ui.components.ErrorMessage
 import dev.k.ui.components.Header
 import dev.k.ui.components.LoadingIndicator
 import dev.k.ui.components.PizzaItemUI
+import dev.k.ui_logic.models.PizzaUI
 
 @Composable
 fun PizzaScreen(
@@ -56,20 +57,19 @@ internal fun PizzaScreenUI(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            when (state) {
+            when (val state = state) {
                 is PizzaScreenState.Initial -> Unit
                 is PizzaScreenState.Loading -> LoadingIndicator()
-                is PizzaScreenState.Failure -> ErrorMessage((state as PizzaScreenState.Failure).message.toString())
-                is PizzaScreenState.Content -> PizzaScreenContent(state as PizzaScreenState.Content, navController)
+                is PizzaScreenState.Failure -> ErrorMessage(state.message.toString())
+                is PizzaScreenState.Content -> PizzaScreenContent(state.pizzaList, navController)
             }
         }
-
     }
 }
 
 @Composable
 fun PizzaScreenContent(
-    state: PizzaScreenState.Content,
+    pizzaList: List<PizzaUI>,
     navController: NavHostController,
 ) {
     LazyColumn(
@@ -78,7 +78,7 @@ fun PizzaScreenContent(
         verticalArrangement = Arrangement.spacedBy(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        items(state.pizzaList) { pizzaItem ->
+        items(pizzaList) { pizzaItem ->
             PizzaItemUI(pizzaItem, navController)
         }
     }

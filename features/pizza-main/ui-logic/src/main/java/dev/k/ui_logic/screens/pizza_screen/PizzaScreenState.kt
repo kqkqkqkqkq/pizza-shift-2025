@@ -1,6 +1,6 @@
 package dev.k.ui_logic.screens.pizza_screen
 
-import dev.k.domain.models.PizzaUI
+import dev.k.ui_logic.models.PizzaUI
 
 sealed interface PizzaScreenState {
 

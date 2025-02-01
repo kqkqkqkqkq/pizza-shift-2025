@@ -3,18 +3,39 @@ package dev.k.pizza_data
 import android.util.Log
 import dev.k.pizza_api.PizzaApi
 import dev.k.pizza_data.mappers.toPizza
+import dev.k.pizza_data.mappers.toPizzaDBO
 import dev.k.pizza_data.models.Pizza
+import dev.k.pizza_database.PizzaDatabase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-public class PizzaRepository @Inject constructor(
+class PizzaRepository @Inject constructor(
+    private val database: PizzaDatabase,
     private val api: PizzaApi,
 ) {
-    val remotePizza: Flow<List<Pizza>> = getCatalog()
 
-    public fun getCatalog(): Flow<List<Pizza>> {
-        return flow {
+    fun getCart(): Flow<List<Pizza>> = flow {
+        emit(database.pizzaDao.getAll().map { it.toPizza() })
+    }.flowOn(Dispatchers.IO)
+
+
+    suspend fun insertToCars(data: Pizza) {
+        database.pizzaDao.insert(data.toPizzaDBO())
+    }
+
+    suspend fun removeFromCart(data: Pizza) {
+        database.pizzaDao.remove(data.toPizzaDBO())
+    }
+
+    suspend fun clearCart() {
+        database.pizzaDao.clean()
+    }
+
+    fun getCatalog(): Flow<List<Pizza>> =
+        flow {
             val response = api.getCatalog()
             if (response.success)
                 emit(response.catalog.map { it.toPizza() })
@@ -22,14 +43,13 @@ public class PizzaRepository @Inject constructor(
                 Log.e(LOG_TAG, response.reason ?: "Unknown error")
                 emit(emptyList())
             }
-        }
     }
 
-    public fun pay() {
-        TODO("implement")
+    suspend fun pay() {
+        api.pay()
     }
 
-    public fun getOrders() {
+    fun getOrders() {
         TODO("implement")
         // @Header("authorization")
         // authorization: String, )

@@ -1,4 +1,4 @@
-package dev.k.domain.models
+package dev.k.ui_logic.models
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

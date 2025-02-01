@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import dev.k.domain.models.PizzaUI
+import dev.k.ui_logic.models.PizzaUI
 import dev.k.ui.screens.CartScreen
 import dev.k.ui.screens.OrdersScreen
 import dev.k.ui.screens.PizzaDetailScreen
