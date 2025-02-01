@@ -17,6 +17,7 @@ import dev.k.pizza_database.models.PizzaDBO
 const val imagePrefix = "https://shift-intensive.ru/api"
 
 internal fun ingredients(s: String): List<PizzaIngredient> {
+    if (s.length == 0) return emptyList()
     return s.split("|").map {
         val item = it.split("!")
         PizzaIngredient(name = item[0], cost = item[1].toInt(), img = item[2]) }

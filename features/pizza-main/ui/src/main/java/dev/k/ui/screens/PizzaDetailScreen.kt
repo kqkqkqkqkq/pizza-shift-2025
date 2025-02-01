@@ -20,11 +20,14 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -32,6 +35,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,6 +55,8 @@ import dev.k.ui.components.Header
 import dev.k.ui.navigation.Screen
 import dev.k.ui_kit.OrangeLight
 import dev.k.ui_logic.screens.pizza_detail_screen.PizzaDetailVewModel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun PizzaDetailScreen(
@@ -69,6 +75,8 @@ internal fun PizzaDetailScreenUI(
 ) {
     val selectedSize by viewModel.selectedSize.collectAsState()
     val pizzaSizesList = pizza.sizes
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -79,6 +87,9 @@ internal fun PizzaDetailScreenUI(
                     }
                 }
             })
+        },
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
         }
     ) { padding ->
         Column(
@@ -114,6 +125,7 @@ internal fun PizzaDetailScreenUI(
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
                     )
+                    Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = "${pizza.sizes.first().name} ${pizza.doughs.first().name} тесто",
                         color = Color.Black.copy(alpha = 0.6f),
@@ -122,14 +134,29 @@ internal fun PizzaDetailScreenUI(
                     )
                 }
                 Spacer(modifier = Modifier.weight(1f))
-                 Button(
-                     modifier = Modifier.size(32.dp),
+                IconButton(
+                     modifier = Modifier
+                         .size(48.dp),
                      onClick = {
-                         //TODO("insert")
                         viewModel.insert(pizza)
-                     }
+                         scope.launch {
+                             snackbarHostState.showSnackbar(
+                                 message = "${pizza.name} добавлена в корзину",
+                                 )
+                         }
+                     },
+                     colors = IconButtonColors(
+                         containerColor = Color.White,
+                         contentColor = Color.Transparent,
+                         disabledContainerColor = Color.Transparent,
+                         disabledContentColor = Color.Transparent,
+                     ),
                  ) {
-                     Icon(Icons.Default.Add, contentDescription = null)
+                     Icon(
+                         Icons.Default.Add,
+                         contentDescription = "add pizza to cart",
+                         tint = Color.Black,
+                     )
                  }
             }
             Text(
@@ -149,7 +176,7 @@ internal fun PizzaDetailScreenUI(
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
             )
-            AdditivesGrid(pizza.toppings)
+            AdditivesGrid(viewModel, pizza.toppings)
         }
     }
 }
@@ -177,11 +204,25 @@ fun PizzaSizeSelector(
                     .clip(RoundedCornerShape(20.dp))
                     .background(if (isSelected) Color.White else Color.Transparent)
             ) {
-                Text(
-                    text = size.name,
-                    color = if (isSelected) Color.Black else Color.Gray,
-                    fontWeight = FontWeight.Normal
-                )
+                Column(
+                    modifier = Modifier,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(
+                        text = size.name,
+                        color = if (isSelected) Color.Black else Color.Gray,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 16.sp,
+                    )
+                    Text(
+                        text = "${size.price} ₽",
+                        color = if (isSelected) Color.Black else Color.Gray,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 8.sp
+                    )
+                }
+
             }
         }
     }
@@ -235,9 +276,11 @@ fun AdditiveItem(
 
 @Composable
 fun AdditivesGrid(
+    viewModel: PizzaDetailVewModel,
     additives: List<PizzaIngredientUI>,
 ) {
-    var selectedItems by remember { mutableStateOf(setOf<String>()) }
+    val selectedItems by viewModel.selectedAdditions.collectAsState()
+//    var selectedItems by remember { mutableStateOf(setOf<String>()) }
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
@@ -253,11 +296,12 @@ fun AdditivesGrid(
                     image = item.img,
                     isSelected = isSelected,
                     onClick = {
-                        selectedItems = if (isSelected) {
+                        val updatedSelection = if (isSelected) {
                             selectedItems - item.name
                         } else {
                             selectedItems + item.name
                         }
+                        viewModel.selectAdditions(updatedSelection)
                     }
                 )
             }

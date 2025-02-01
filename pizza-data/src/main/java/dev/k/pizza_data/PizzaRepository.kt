@@ -27,7 +27,12 @@ class PizzaRepository @Inject constructor(
     }
 
     suspend fun removeFromCart(data: Pizza) {
-        database.pizzaDao.remove(data.toPizzaDBO())
+//        Log.e("pizza delete", data.toString())
+        Log.e("pizza dbo delete", data.toPizzaDBO().toString())
+//        database.pizzaDao.remove(data.toPizzaDBO())
+//        Log.e("after delete", data.toString())
+
+        database.pizzaDao.removeByName(data.name)
     }
 
     suspend fun clearCart() {

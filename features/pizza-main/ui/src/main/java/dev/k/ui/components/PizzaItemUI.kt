@@ -35,7 +35,6 @@ fun PizzaItemUI(
             .clickable {
                 navController.currentBackStackEntry?.savedStateHandle?.set("pizzaUI", pizza)
                 navController.navigate(Screen.PIZZA_DETAIL)
-                println(pizza.toString())
             },
         horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically,
