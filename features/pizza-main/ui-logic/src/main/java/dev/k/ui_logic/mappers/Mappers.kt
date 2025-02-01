@@ -1,9 +1,9 @@
-package dev.k.domain.mappers
+package dev.k.ui_logic.mappers
 
-import dev.k.domain.models.PizzaDoughUI
-import dev.k.domain.models.PizzaIngredientUI
-import dev.k.domain.models.PizzaSizeUI
-import dev.k.domain.models.PizzaUI
+import dev.k.ui_logic.models.PizzaDoughUI
+import dev.k.ui_logic.models.PizzaIngredientUI
+import dev.k.ui_logic.models.PizzaSizeUI
+import dev.k.ui_logic.models.PizzaUI
 import dev.k.pizza_data.models.Pizza
 import dev.k.pizza_data.models.PizzaDough
 import dev.k.pizza_data.models.PizzaIngredient

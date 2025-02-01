@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import dev.k.domain.models.PizzaUI
+import dev.k.ui_logic.models.PizzaUI
 import dev.k.ui.navigation.Screen
 
 @Composable
@@ -44,7 +44,7 @@ fun PizzaItemUI(
             modifier = Modifier
                 .padding(start = 16.dp, bottom = 12.dp)
                 .size(116.dp),
-            model = "https://shift-intensive.ru/api${pizza.img}",
+            model = pizza.img,
             contentDescription = "pizza image"
         )
         Column(

@@ -18,12 +18,17 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,42 +41,44 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import dev.k.domain.models.PizzaIngredientUI
-import dev.k.domain.models.PizzaSizeUI
-import dev.k.domain.models.PizzaUI
+import dev.k.ui_logic.models.PizzaIngredientUI
+import dev.k.ui_logic.models.PizzaSizeUI
+import dev.k.ui_logic.models.PizzaUI
 import dev.k.ui.components.Header
 import dev.k.ui.navigation.Screen
 import dev.k.ui_kit.OrangeLight
+import dev.k.ui_logic.screens.pizza_detail_screen.PizzaDetailVewModel
 
 @Composable
 fun PizzaDetailScreen(
     pizza: PizzaUI,
     navController: NavHostController,
 ) {
-//    val viewModel: PizzaDetailVewModel = hiltViewModel()
-    PizzaDetailScreenUI(pizza, navController)
+    val viewModel: PizzaDetailVewModel = hiltViewModel()
+    PizzaDetailScreenUI(pizza, viewModel, navController)
 }
 
 @Composable
 internal fun PizzaDetailScreenUI(
     pizza: PizzaUI,
-//    viewModel: PizzaDetailVewModel,
+    viewModel: PizzaDetailVewModel,
     navController: NavHostController,
 ) {
-    var selectedSize by remember { mutableStateOf(0) }
+    val selectedSize by viewModel.selectedSize.collectAsState()
     val pizzaSizesList = pizza.sizes
 
     Scaffold(
         topBar = {
-            Header("Пицца") {
+            Header(text = "Пицца", onClick = {
                 navController.navigate(Screen.Pizza.route) {
                     popUpTo(Screen.PIZZA_DETAIL) {
                         inclusive = true
                     }
                 }
-            }
+            })
         }
     ) { padding ->
         Column(
@@ -93,26 +100,38 @@ internal fun PizzaDetailScreenUI(
                     .padding(top = 12.dp),
                 contentAlignment = Alignment.Center,
             ) {
-                // TODO("Вынести url в константу")
                 AsyncImage(
                     modifier = Modifier.size(220.dp),
-                    model = "https://shift-intensive.ru/api${pizza.img}",
+                    model = pizza.img,
                     contentDescription = "pizza detail image"
                 )
             }
-            Text(
-                text = pizza.name,
-                color = Color.Black,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-            )
-//          TODO("сделать функицю получения строчки")
-            Text(
-                text = "${pizza.sizes.first().name} ${pizza.doughs.first().name} тесто",
-                color = Color.Black.copy(alpha = 0.6f),
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Normal,
-            )
+            Row() {
+                Column {
+                    Text(
+                        text = pizza.name,
+                        color = Color.Black,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                    )
+                    Text(
+                        text = "${pizza.sizes.first().name} ${pizza.doughs.first().name} тесто",
+                        color = Color.Black.copy(alpha = 0.6f),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Normal,
+                    )
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                 Button(
+                     modifier = Modifier.size(32.dp),
+                     onClick = {
+                         //TODO("insert")
+                        viewModel.insert(pizza)
+                     }
+                 ) {
+                     Icon(Icons.Default.Add, contentDescription = null)
+                 }
+            }
             Text(
                 text = pizza.description,
                 color = Color.Black.copy(alpha = 0.6f),
@@ -122,7 +141,7 @@ internal fun PizzaDetailScreenUI(
             PizzaSizeSelector(
                 sizes = pizzaSizesList,
                 selectedIndex = selectedSize,
-                onOptionSelected = { selectedSize = it }
+                onOptionSelected = { viewModel.selectSize(it) }
             )
             Text(
                 text = "Добавить по вкусу",
@@ -200,9 +219,8 @@ fun AdditiveItem(
                     .fillMaxWidth(),
                 contentAlignment = Alignment.Center,
             ) {
-                //TODO("Вынести url")
                 AsyncImage(
-                    model = "https://shift-intensive.ru/api$image",
+                    model = image,
                     contentDescription = "addition",
                     modifier = Modifier.size(64.dp),
                 )

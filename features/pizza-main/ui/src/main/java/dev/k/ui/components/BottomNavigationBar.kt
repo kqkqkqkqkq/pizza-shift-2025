@@ -39,7 +39,7 @@ fun BottomNavigationBar(
         containerColor = WhiteLight
     ) {
         screens.forEach {
-            AddItem(
+            BottomBarItem(
                 screen = it,
                 currentDestination = currentDestination,
                 navController = navController
@@ -49,7 +49,7 @@ fun BottomNavigationBar(
 }
 
 @Composable
-fun RowScope.AddItem(
+fun RowScope.BottomBarItem(
     screen: Screen,
     currentDestination: NavDestination?,
     navController: NavHostController

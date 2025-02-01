@@ -37,7 +37,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     compileOnly(libs.androidx.compose.runtime)
-//    api(libs.kotlinx.immutable)
 
     api(project(":pizza-data"))
 

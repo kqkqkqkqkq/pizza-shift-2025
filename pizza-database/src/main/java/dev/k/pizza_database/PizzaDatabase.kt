@@ -12,7 +12,7 @@ class PizzaDatabase internal constructor(private val database: PizzaRoomDatabase
         get() = database.pizzaDao()
 }
 
-@Database(entities = [PizzaDBO::class], version = 1)
+@Database(entities = [PizzaDBO::class], version = 1, exportSchema = false)
 internal abstract class PizzaRoomDatabase: RoomDatabase() {
     abstract fun pizzaDao(): PizzaDao
 }
