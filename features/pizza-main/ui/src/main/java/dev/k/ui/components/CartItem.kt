@@ -12,11 +12,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,14 +28,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import dev.k.ui_logic.models.PizzaUI
+import dev.k.ui_logic.screens.cart_screen.CartScreenViewModel
 
 @Composable
 fun CartItem(
     pizza: PizzaUI,
-    quantity: Int = 1,
-//    onQuantityChange: (Int) -> Unit,
-//    onEditClick: () -> Unit,
+    viewModel: CartScreenViewModel,
 ) {
+    val quantity = viewModel.quantity.collectAsState()
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -56,20 +59,24 @@ fun CartItem(
             Spacer(modifier = Modifier.height(4.dp))
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = { }){//if (quantity > 1) onQuantityChange(quantity - 1) }) {
-                    Icon(imageVector = Icons.Default.Delete, contentDescription = "Decrease")
+                IconButton(onClick = { if (quantity.value > 1) viewModel.quantityChange(quantity.value - 1) }) {
+                    Icon(imageVector = Icons.Default.KeyboardArrowLeft, contentDescription = "Decrease")
                 }
-                Text(text = "$quantity", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                IconButton(onClick = { }){//onQuantityChange(quantity + 1) }) {
+                Text(text = "${quantity.value}", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                IconButton(onClick = { viewModel.quantityChange(quantity.value + 1) }) {
                     Icon(imageVector = Icons.Default.Add, contentDescription = "Increase")
                 }
                 Spacer(modifier = Modifier.width(8.dp))
-                TextButton(onClick = {}){//onEditClick) {
-                    Text(text = "Изменить", color = Color.Blue)
+                IconButton(
+                    onClick = {
+                        viewModel.deleteFromCart(pizza)
+                    }
+                ) {
+                    Icon(imageVector = Icons.Default.Delete, contentDescription = "Increase")
                 }
             }
         }
 
-        Text(text = "${pizza.sizes.first().price} ₽", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+        Text(text = "${pizza.sizes.first().price * quantity.value} ₽", fontWeight = FontWeight.Bold, fontSize = 16.sp)
     }
 }

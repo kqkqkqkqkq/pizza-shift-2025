@@ -18,6 +18,9 @@ interface PizzaDao {
     @Delete
     suspend fun remove(pizza: PizzaDBO)
 
+    @Query("DELETE FROM pizzas WHERE name = :name")
+    suspend fun removeByName(name: String)
+
     @Query("DELETE FROM pizzas")
     suspend fun clean()
 }

@@ -1,6 +1,5 @@
 package dev.k.pizza_data.mappers
 
-import android.util.Log
 import dev.k.pizza_api.models.Dough
 import dev.k.pizza_api.models.Ingredient
 import dev.k.pizza_api.models.PizzaDTO
@@ -15,27 +14,29 @@ import dev.k.pizza_data.models.PizzaSize
 import dev.k.pizza_database.models.PizzaDBO
 
 const val imagePrefix = "https://shift-intensive.ru/api"
+const val separateListPrefix = "|"
+const val separateListItemPrefix = "!"
 
-internal fun ingredients(s: String): List<PizzaIngredient> {
-    return s.split("|").map {
-        val item = it.split("!")
+private fun ingredients(s: String): List<PizzaIngredient> {
+    if (s.isEmpty()) return emptyList()
+    return s.split(separateListPrefix).map {
+        val item = it.split(separateListItemPrefix)
         PizzaIngredient(name = item[0], cost = item[1].toInt(), img = item[2]) }
 }
 
-internal fun sizes(s: String): List<PizzaSize> {
-    return s.split("|").map {
-        val item = it.split("!")
+private fun sizes(s: String): List<PizzaSize> {
+    return s.split(separateListPrefix).map {
+        val item = it.split(separateListItemPrefix)
         PizzaSize(name = item[0], price = item[1].toInt()) }
 }
 
-internal fun doughs(s: String): List<PizzaDough> {
-    return s.split("|").map {
-        val item = it.split("!")
+private fun doughs(s: String): List<PizzaDough> {
+    return s.split(separateListPrefix).map {
+        val item = it.split(separateListItemPrefix)
         PizzaDough(name = item[0], price = item[1].toInt()) }
 }
 
 internal fun PizzaDBO.toPizza(): Pizza {
-    Log.e("map", this.toString())
     return Pizza(
         id = id.toString(),
         name = name,
@@ -49,7 +50,8 @@ internal fun PizzaDBO.toPizza(): Pizza {
         totalFat = totalFat,
         carbohydrates = carbohydrates,
         sodium = sodium,
-        allergens = allergens.split("|"),
+        allergens = allergens
+            .split(separateListPrefix),
         isVegetarian = isVegetarian,
         isGlutenFree = isGlutenFree,
         isNew = isNew,
@@ -61,17 +63,26 @@ internal fun PizzaDBO.toPizza(): Pizza {
 internal fun Pizza.toPizzaDBO(): PizzaDBO =
     PizzaDBO(
         name = name,
-        ingredients = ingredients.joinToString("|") { "${it.name}!${it.cost}!${it.img}" },
-        toppings = toppings.joinToString("|") { "${it.name}!${it.cost}!${it.img}" },
+        ingredients = ingredients
+            .joinToString(separateListPrefix) {
+                "${it.name}${separateListItemPrefix}${it.cost}${separateListItemPrefix}${it.img}" },
+        toppings = toppings
+            .joinToString(separateListPrefix) {
+                "${it.name}${separateListItemPrefix}${it.cost}${separateListItemPrefix}${it.img}" },
         description = description,
-        sizes = sizes.joinToString("|") { "${it.name}!${it.price}" },
-        doughs = doughs.joinToString("|") { "${it.name}!${it.price}" },
+        sizes = sizes
+            .joinToString(separateListPrefix) {
+                "${it.name}${separateListItemPrefix}${it.price}" },
+        doughs = doughs
+            .joinToString(separateListPrefix) {
+                "${it.name}${separateListItemPrefix}${it.price}" },
         calories = calories,
         protein = protein,
         totalFat = totalFat,
         carbohydrates = carbohydrates,
         sodium = sodium,
-        allergens = allergens.joinToString("|"),
+        allergens = allergens
+            .joinToString(separateListPrefix),
         isVegetarian = isVegetarian,
         isGlutenFree = isGlutenFree,
         isNew = isNew,
@@ -83,11 +94,15 @@ internal fun PizzaDTO.toPizza(): Pizza =
     Pizza(
         id = id,
         name = name,
-        ingredients = ingredients.map { it.toPizzaIngredient() },
-        toppings = toppings.map { it.toPizzaIngredient() },
+        ingredients = ingredients
+            .map { it.toPizzaIngredient() },
+        toppings = toppings
+            .map { it.toPizzaIngredient() },
         description = description,
-        sizes = sizes.map { it.toPizzaSize() },
-        doughs = doughs.map { it.toPizzaDough() },
+        sizes = sizes
+            .map { it.toPizzaSize() },
+        doughs = doughs
+            .map { it.toPizzaDough() },
         calories = calories,
         protein = protein,
         totalFat = totalFat,

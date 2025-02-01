@@ -16,16 +16,27 @@ class PizzaDetailVewModel @Inject internal constructor (
     private val insertToCartUseCase: Provider<InsertToCartUseCase>,
 ): ViewModel() {
 
-    fun insert(data: PizzaUI) {
-        viewModelScope.launch {
-            insertToCartUseCase.get().invoke(data)
-        }
-    }
-
     private val _selectedSize = MutableStateFlow(0)
     val selectedSize: StateFlow<Int> = _selectedSize
 
+    private val _selectedAdditions = MutableStateFlow(emptySet<String>())
+    val selectedAdditions: StateFlow<Set<String>> = _selectedAdditions
+
     fun selectSize(position: Int) {
         _selectedSize.value = position
+    }
+
+    fun selectAdditions(additions: Set<String>) {
+        _selectedAdditions.value = additions
+    }
+
+    fun insert(data: PizzaUI) {
+        val pizza = data.copy(
+            sizes = listOf(data.sizes[_selectedSize.value]),
+            toppings = data.toppings.filter { it.name in selectedAdditions.value }
+        )
+        viewModelScope.launch {
+            insertToCartUseCase.get().invoke(pizza)
+        }
     }
 }

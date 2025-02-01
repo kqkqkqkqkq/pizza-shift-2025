@@ -27,15 +27,14 @@ class PizzaRepository @Inject constructor(
     }
 
     suspend fun removeFromCart(data: Pizza) {
-        database.pizzaDao.remove(data.toPizzaDBO())
+        database.pizzaDao.removeByName(data.name)
     }
 
     suspend fun clearCart() {
         database.pizzaDao.clean()
     }
 
-    fun getCatalog(): Flow<List<Pizza>> =
-        flow {
+    fun getCatalog(): Flow<List<Pizza>> = flow {
             val response = api.getCatalog()
             if (response.success)
                 emit(response.catalog.map { it.toPizza() })

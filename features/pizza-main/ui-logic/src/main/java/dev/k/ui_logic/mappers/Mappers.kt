@@ -13,11 +13,15 @@ internal fun Pizza.toPizzaUI(): PizzaUI =
     PizzaUI(
         id = id,
         name = name,
-        ingredients = ingredients.map { it.toPizzaIngredientUI() },
-        toppings = toppings.map { it.toPizzaIngredientUI() },
+        ingredients = ingredients
+            .map { it.toPizzaIngredientUI() },
+        toppings = toppings
+            .map { it.toPizzaIngredientUI() },
         description = description,
-        sizes = sizes.map { it.toPizzaSizeUI() },
-        doughs = doughs.map { it.toPizzaDoughUI() },
+        sizes = sizes
+            .map { it.toPizzaSizeUI() },
+        doughs = doughs
+            .map { it.toPizzaDoughUI() },
         calories = calories,
         protein = protein,
         totalFat = totalFat,
@@ -44,11 +48,15 @@ internal fun PizzaUI.toPizza(): Pizza =
     Pizza(
         id = id,
         name = name,
-        ingredients = ingredients.map { it.toPizzaIngredient() },
-        toppings = toppings.map { it.toPizzaIngredient() },
+        ingredients = ingredients
+            .map { it.toPizzaIngredient() },
+        toppings = toppings
+            .map { it.toPizzaIngredient() },
         description = description,
-        sizes = sizes.map { it.toPizzaSize() },
-        doughs = doughs.map { it.toPizzaDough() },
+        sizes = sizes
+            .map { it.toPizzaSize() },
+        doughs = doughs
+            .map { it.toPizzaDough() },
         calories = calories,
         protein = protein,
         totalFat = totalFat,
