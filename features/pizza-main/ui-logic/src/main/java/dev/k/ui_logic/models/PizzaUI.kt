@@ -1,5 +1,9 @@
 package dev.k.domain.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class PizzaUI(
     val id: String,
     val name: String,
@@ -19,4 +23,4 @@ data class PizzaUI(
     val isNew: Boolean,
     val isHit: Boolean,
     val img: String,
-)
+): Parcelable

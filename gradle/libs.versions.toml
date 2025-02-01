@@ -24,6 +24,8 @@ coil = "2.6.0"
 javax-inject = "1"
 androidx-compose-runtime = "1.6.0"
 hiltNavigationCompose = "1.2.0"
+room = "2.6.1"
+ksp = "1.9.22-1.0.17"
 
 [libraries]
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
@@ -49,10 +51,12 @@ dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = 
 dagger-main = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 # Annotation
 javax-inject = { module = "javax.inject:javax.inject", version.ref = "javax-inject" }
-
 # Coil
 coil-core = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+# Room
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "androidx-compose-runtime" }
 
@@ -79,3 +83,5 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-serialization" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+#androidx-room = { id = "androidx.room", version.ref = "room" }

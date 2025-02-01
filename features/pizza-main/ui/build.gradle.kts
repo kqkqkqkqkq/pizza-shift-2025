@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.kapt)
     alias(libs.plugins.kotlin.compose)
-//    alias(libs.plugins.kotlin.serialization)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -46,7 +46,6 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
-//    implementation(libs.kotlinx.serealization.json)
 
     implementation(project(":features:pizza-main:ui-logic"))
     implementation(project(":ui-kit"))
