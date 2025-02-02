@@ -12,4 +12,5 @@
 | Coil | `2.6.0` |
 
 [API Documentation](https://shift-intensive.ru/api)
+
 [Application design](https://www.figma.com/design/B3cUuf9D2o3n4N1nkerjB8/Pizza-UI?node-id=0-1&p=f&t=Mldmxkj5XLQDFSqV-0)
