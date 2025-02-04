@@ -1,6 +1,6 @@
 package dev.k.ui.navigation
 
-import dev.k.ui.R
+import dev.k.ui_kit.R
 
 sealed class Screen(
     val route: String,
