@@ -1,6 +1,5 @@
 package dev.k.ui.screens
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,17 +20,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import dev.k.ui.components.BottomNavigationBar
 import dev.k.ui.components.CartItem
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.TextButton
-import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.res.stringResource
+import dev.k.ui.R
 import dev.k.ui.components.Header
 import dev.k.ui_kit.OrangeLight
+import dev.k.ui_kit.PizzaTheme
 import dev.k.ui_kit.WhiteLight
 import dev.k.ui_logic.models.PizzaUI
 import dev.k.ui_logic.screens.cart_screen.CartScreenViewModel
@@ -56,7 +55,7 @@ internal fun CartScreenUI(
             BottomNavigationBar(navController)
         },
         topBar = {
-            Header("Корзина")
+            Header(stringResource(R.string.cart))
         }
     ) { padding ->
         Column(
@@ -114,7 +113,7 @@ fun CartScreenEmpty() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        Text("Ваша корзина пуста...")
+        Text(stringResource(R.string.empty_cart))
     }
 }
 
@@ -142,7 +141,7 @@ fun OrderElement() {
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text("Стоимость заказа:")
+                Text(stringResource(R.string.order_cost))
                 Spacer(modifier = Modifier.weight(1f))
                 Text("1200 ₽")
             }
@@ -158,7 +157,7 @@ fun OrderElement() {
             ) {
                 Text(
                     color = WhiteLight,
-                    text = "Оформить заказ",
+                    text = stringResource(R.string.make_order),
                 )
             }
         }

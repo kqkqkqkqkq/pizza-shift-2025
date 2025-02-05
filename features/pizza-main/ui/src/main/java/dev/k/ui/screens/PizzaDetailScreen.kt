@@ -39,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -46,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import dev.k.ui.R
 import dev.k.ui_logic.models.PizzaIngredientUI
 import dev.k.ui_logic.models.PizzaSizeUI
 import dev.k.ui_logic.models.PizzaUI
@@ -77,7 +79,7 @@ internal fun PizzaDetailScreenUI(
 
     Scaffold(
         topBar = {
-            Header(text = "Пицца", onClick = {
+            Header(text = stringResource(R.string.pizza), onClick = {
                 navController.navigate(Screen.Pizza.route) {
                     popUpTo(Screen.PIZZA_DETAIL) {
                         inclusive = true
@@ -168,7 +170,7 @@ internal fun PizzaDetailScreenUI(
                 onOptionSelected = { viewModel.selectSize(it) }
             )
             Text(
-                text = "Добавить по вкусу",
+                text = stringResource(R.string.add_to_taste),
                 color = Color.Black,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,

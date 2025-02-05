@@ -12,9 +12,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import dev.k.ui.R
 import dev.k.ui_logic.screens.pizza_screen.PizzaScreenState
 import dev.k.ui_logic.screens.pizza_screen.PizzaScreenViewModel
 import dev.k.ui.components.BottomNavigationBar
@@ -44,7 +46,7 @@ internal fun PizzaScreenUI(
             BottomNavigationBar(navController)
         },
         topBar = {
-            Header("Пицца")
+            Header(stringResource(R.string.pizza))
         }
     ) { padding ->
         Column(
@@ -57,11 +59,11 @@ internal fun PizzaScreenUI(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            when (val state = state) {
+            when (val currentState = state) {
                 is PizzaScreenState.Initial -> Unit
                 is PizzaScreenState.Loading -> LoadingIndicator()
-                is PizzaScreenState.Failure -> ErrorMessage(state.message.toString())
-                is PizzaScreenState.Content -> PizzaScreenContent(state.pizzaList, navController)
+                is PizzaScreenState.Failure -> ErrorMessage(currentState.message.toString())
+                is PizzaScreenState.Content -> PizzaScreenContent(currentState.pizzaList, navController)
             }
         }
     }
