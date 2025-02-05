@@ -1,15 +1,15 @@
 # Pizza
 
-| Technology | Version |
-| - | - |
-| Kotlin | `2.0.0` |
-| Coroutines | `1.10.1` |
-| Compose | `1.6.0` |
-| Room | `2.6.1` |
-| Retrofit | `2.11.0` |
-| Serealization | `2.1.0` |
+| Technology    | Version  |
+|---------------|----------|
+| Kotlin        | `2.0.0`  |
+| Coroutines    | `1.10.1` |
+| Compose       | `1.6.0`  |
+| Room          | `2.6.1`  |
+| Retrofit      | `2.11.0` |
+| Serialization | `2.1.0`  |
 | Dagger + Hilt | `2.51.1` |
-| Coil | `2.6.0` |
+| Coil          | `2.6.0`  |
 
 [API Documentation](https://shift-intensive.ru/api)
 
