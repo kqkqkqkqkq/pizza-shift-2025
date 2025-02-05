@@ -16,7 +16,7 @@ import javax.inject.Provider
 class CartScreenViewModel @Inject internal constructor(
     private val getCartUseCase: Provider<GetCartUseCase>,
     private val deleteFromCartUseCase: Provider<DeleteFromCartUseCase>,
-): ViewModel() {
+) : ViewModel() {
 
     private val _quantity = MutableStateFlow(1)
     val quantity: StateFlow<Int> = _quantity

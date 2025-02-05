@@ -4,12 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import dev.k.ui_logic.models.PizzaUI
 import dev.k.ui.screens.CartScreen
 import dev.k.ui.screens.OrdersScreen
 import dev.k.ui.screens.PizzaDetailScreen
 import dev.k.ui.screens.PizzaScreen
 import dev.k.ui.screens.ProfileScreen
+import dev.k.ui_logic.models.PizzaUI
 
 @Composable
 fun NavGraph(
@@ -32,7 +32,8 @@ fun NavGraph(
             ProfileScreen(navController)
         }
         composable(Screen.PIZZA_DETAIL) {
-            val pizza = navController.previousBackStackEntry?.savedStateHandle?.get<PizzaUI>("pizzaUI")!!
+            val pizza =
+                navController.previousBackStackEntry?.savedStateHandle?.get<PizzaUI>("pizzaUI")!!
             PizzaDetailScreen(pizza, navController)
         }
     }

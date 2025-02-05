@@ -19,7 +19,11 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        buildConfigField("String", "PIZZA_API_BASE_URL", "\"https://shift-intensive.ru/api/pizza/\"")
+        buildConfigField(
+            "String",
+            "PIZZA_API_BASE_URL",
+            "\"https://shift-intensive.ru/api/pizza/\""
+        )
 
     }
 

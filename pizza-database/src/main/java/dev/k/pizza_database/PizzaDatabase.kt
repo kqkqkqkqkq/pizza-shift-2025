@@ -13,7 +13,7 @@ class PizzaDatabase internal constructor(private val database: PizzaRoomDatabase
 }
 
 @Database(entities = [PizzaDBO::class], version = 1, exportSchema = false)
-internal abstract class PizzaRoomDatabase: RoomDatabase() {
+internal abstract class PizzaRoomDatabase : RoomDatabase() {
     abstract fun pizzaDao(): PizzaDao
 }
 

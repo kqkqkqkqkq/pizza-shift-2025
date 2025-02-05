@@ -21,19 +21,22 @@ private fun ingredients(s: String): List<PizzaIngredient> {
     if (s.isEmpty()) return emptyList()
     return s.split(separateListPrefix).map {
         val item = it.split(separateListItemPrefix)
-        PizzaIngredient(name = item[0], cost = item[1].toInt(), img = item[2]) }
+        PizzaIngredient(name = item[0], cost = item[1].toInt(), img = item[2])
+    }
 }
 
 private fun sizes(s: String): List<PizzaSize> {
     return s.split(separateListPrefix).map {
         val item = it.split(separateListItemPrefix)
-        PizzaSize(name = item[0], price = item[1].toInt()) }
+        PizzaSize(name = item[0], price = item[1].toInt())
+    }
 }
 
 private fun doughs(s: String): List<PizzaDough> {
     return s.split(separateListPrefix).map {
         val item = it.split(separateListItemPrefix)
-        PizzaDough(name = item[0], price = item[1].toInt()) }
+        PizzaDough(name = item[0], price = item[1].toInt())
+    }
 }
 
 internal fun PizzaDBO.toPizza(): Pizza {
@@ -65,17 +68,21 @@ internal fun Pizza.toPizzaDBO(): PizzaDBO =
         name = name,
         ingredients = ingredients
             .joinToString(separateListPrefix) {
-                "${it.name}${separateListItemPrefix}${it.cost}${separateListItemPrefix}${it.img}" },
+                "${it.name}${separateListItemPrefix}${it.cost}${separateListItemPrefix}${it.img}"
+            },
         toppings = toppings
             .joinToString(separateListPrefix) {
-                "${it.name}${separateListItemPrefix}${it.cost}${separateListItemPrefix}${it.img}" },
+                "${it.name}${separateListItemPrefix}${it.cost}${separateListItemPrefix}${it.img}"
+            },
         description = description,
         sizes = sizes
             .joinToString(separateListPrefix) {
-                "${it.name}${separateListItemPrefix}${it.price}" },
+                "${it.name}${separateListItemPrefix}${it.price}"
+            },
         doughs = doughs
             .joinToString(separateListPrefix) {
-                "${it.name}${separateListItemPrefix}${it.price}" },
+                "${it.name}${separateListItemPrefix}${it.price}"
+            },
         calories = calories,
         protein = protein,
         totalFat = totalFat,

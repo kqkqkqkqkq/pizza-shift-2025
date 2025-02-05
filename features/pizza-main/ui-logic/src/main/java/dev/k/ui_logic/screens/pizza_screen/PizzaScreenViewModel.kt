@@ -14,7 +14,7 @@ import javax.inject.Provider
 @HiltViewModel
 class PizzaScreenViewModel @Inject internal constructor(
     getCatalogUseCase: Provider<GetCatalogUseCase>,
-): ViewModel() {
+) : ViewModel() {
 
     val state: StateFlow<PizzaScreenState> =
         getCatalogUseCase.get().invoke()

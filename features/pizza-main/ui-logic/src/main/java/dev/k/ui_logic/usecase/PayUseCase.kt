@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 internal class PayUseCase @Inject constructor(
     private val repository: PizzaRepository,
-){
+) {
     suspend operator fun invoke() {
         repository.pay()
     }

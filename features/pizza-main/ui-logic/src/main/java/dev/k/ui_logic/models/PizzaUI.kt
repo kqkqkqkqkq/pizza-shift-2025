@@ -23,4 +23,4 @@ data class PizzaUI(
     val isNew: Boolean,
     val isHit: Boolean,
     val img: String,
-): Parcelable
+) : Parcelable

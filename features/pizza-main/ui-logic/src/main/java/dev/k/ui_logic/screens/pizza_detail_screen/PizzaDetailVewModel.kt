@@ -12,9 +12,9 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 @HiltViewModel
-class PizzaDetailVewModel @Inject internal constructor (
+class PizzaDetailVewModel @Inject internal constructor(
     private val insertToCartUseCase: Provider<InsertToCartUseCase>,
-): ViewModel() {
+) : ViewModel() {
 
     private val _selectedSize = MutableStateFlow(0)
     val selectedSize: StateFlow<Int> = _selectedSize

@@ -35,13 +35,13 @@ class PizzaRepository @Inject constructor(
     }
 
     fun getCatalog(): Flow<List<Pizza>> = flow {
-            val response = api.getCatalog()
-            if (response.success)
-                emit(response.catalog.map { it.toPizza() })
-            else {
-                Log.e(LOG_TAG, response.reason ?: "Unknown error")
-                emit(emptyList())
-            }
+        val response = api.getCatalog()
+        if (response.success)
+            emit(response.catalog.map { it.toPizza() })
+        else {
+            Log.e(LOG_TAG, response.reason ?: "Unknown error")
+            emit(emptyList())
+        }
     }
 
     suspend fun pay() {

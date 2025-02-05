@@ -17,14 +17,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import dev.k.ui.R
-import dev.k.ui_logic.screens.pizza_screen.PizzaScreenState
-import dev.k.ui_logic.screens.pizza_screen.PizzaScreenViewModel
 import dev.k.ui.components.BottomNavigationBar
 import dev.k.ui.components.ErrorMessage
 import dev.k.ui.components.Header
 import dev.k.ui.components.LoadingIndicator
 import dev.k.ui.components.PizzaItemUI
 import dev.k.ui_logic.models.PizzaUI
+import dev.k.ui_logic.screens.pizza_screen.PizzaScreenState
+import dev.k.ui_logic.screens.pizza_screen.PizzaScreenViewModel
 
 @Composable
 fun PizzaScreen(
@@ -63,7 +63,10 @@ internal fun PizzaScreenUI(
                 is PizzaScreenState.Initial -> Unit
                 is PizzaScreenState.Loading -> LoadingIndicator()
                 is PizzaScreenState.Failure -> ErrorMessage(currentState.message.toString())
-                is PizzaScreenState.Content -> PizzaScreenContent(currentState.pizzaList, navController)
+                is PizzaScreenState.Content -> PizzaScreenContent(
+                    currentState.pizzaList,
+                    navController
+                )
             }
         }
     }

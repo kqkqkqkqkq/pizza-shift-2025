@@ -48,12 +48,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import dev.k.ui.R
-import dev.k.ui_logic.models.PizzaIngredientUI
-import dev.k.ui_logic.models.PizzaSizeUI
-import dev.k.ui_logic.models.PizzaUI
 import dev.k.ui.components.Header
 import dev.k.ui.navigation.Screen
 import dev.k.ui_kit.OrangeLight
+import dev.k.ui_logic.models.PizzaIngredientUI
+import dev.k.ui_logic.models.PizzaSizeUI
+import dev.k.ui_logic.models.PizzaUI
 import dev.k.ui_logic.screens.pizza_detail_screen.PizzaDetailVewModel
 import kotlinx.coroutines.launch
 
@@ -134,29 +134,29 @@ internal fun PizzaDetailScreenUI(
                 }
                 Spacer(modifier = Modifier.weight(1f))
                 IconButton(
-                     modifier = Modifier
-                         .size(48.dp),
-                     onClick = {
+                    modifier = Modifier
+                        .size(48.dp),
+                    onClick = {
                         viewModel.insert(pizza)
-                         scope.launch {
-                             snackbarHostState.showSnackbar(
-                                 message = "${pizza.name} добавлена в корзину",
-                                 )
-                         }
-                     },
-                     colors = IconButtonColors(
-                         containerColor = Color.White,
-                         contentColor = Color.Transparent,
-                         disabledContainerColor = Color.Transparent,
-                         disabledContentColor = Color.Transparent,
-                     ),
-                 ) {
-                     Icon(
-                         Icons.Default.Add,
-                         contentDescription = "add pizza to cart",
-                         tint = Color.Black,
-                     )
-                 }
+                        scope.launch {
+                            snackbarHostState.showSnackbar(
+                                message = "${pizza.name} добавлена в корзину",
+                            )
+                        }
+                    },
+                    colors = IconButtonColors(
+                        containerColor = Color.White,
+                        contentColor = Color.Transparent,
+                        disabledContainerColor = Color.Transparent,
+                        disabledContentColor = Color.Transparent,
+                    ),
+                ) {
+                    Icon(
+                        Icons.Default.Add,
+                        contentDescription = "add pizza to cart",
+                        tint = Color.Black,
+                    )
+                }
             }
             Text(
                 text = pizza.description,

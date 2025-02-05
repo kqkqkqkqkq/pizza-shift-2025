@@ -18,7 +18,7 @@ import retrofit2.http.Path
  */
 interface PizzaApi {
     @GET("catalog")
-    suspend fun getCatalog():ResponseDTO<PizzaDTO>
+    suspend fun getCatalog(): ResponseDTO<PizzaDTO>
 
     @POST("payment")
     suspend fun pay()

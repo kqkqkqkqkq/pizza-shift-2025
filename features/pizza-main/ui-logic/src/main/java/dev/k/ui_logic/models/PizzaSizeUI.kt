@@ -7,4 +7,4 @@ import kotlinx.parcelize.Parcelize
 data class PizzaSizeUI(
     val name: String,
     val price: Int,
-): Parcelable
+) : Parcelable

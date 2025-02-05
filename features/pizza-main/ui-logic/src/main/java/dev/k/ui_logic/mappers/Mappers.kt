@@ -1,13 +1,13 @@
 package dev.k.ui_logic.mappers
 
-import dev.k.ui_logic.models.PizzaDoughUI
-import dev.k.ui_logic.models.PizzaIngredientUI
-import dev.k.ui_logic.models.PizzaSizeUI
-import dev.k.ui_logic.models.PizzaUI
 import dev.k.pizza_data.models.Pizza
 import dev.k.pizza_data.models.PizzaDough
 import dev.k.pizza_data.models.PizzaIngredient
 import dev.k.pizza_data.models.PizzaSize
+import dev.k.ui_logic.models.PizzaDoughUI
+import dev.k.ui_logic.models.PizzaIngredientUI
+import dev.k.ui_logic.models.PizzaSizeUI
+import dev.k.ui_logic.models.PizzaUI
 
 internal fun Pizza.toPizzaUI(): PizzaUI =
     PizzaUI(

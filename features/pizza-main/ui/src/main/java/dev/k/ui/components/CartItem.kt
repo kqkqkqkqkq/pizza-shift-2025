@@ -10,13 +10,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -60,7 +60,10 @@ fun CartItem(
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 IconButton(onClick = { if (quantity.value > 1) viewModel.quantityChange(quantity.value - 1) }) {
-                    Icon(imageVector = Icons.Default.KeyboardArrowLeft, contentDescription = "Decrease")
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                        contentDescription = "Decrease"
+                    )
                 }
                 Text(text = "${quantity.value}", fontSize = 16.sp, fontWeight = FontWeight.Bold)
                 IconButton(onClick = { viewModel.quantityChange(quantity.value + 1) }) {
@@ -77,6 +80,10 @@ fun CartItem(
             }
         }
 
-        Text(text = "${pizza.sizes.first().price * quantity.value} ₽", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+        Text(
+            text = "${pizza.sizes.first().price * quantity.value} ₽",
+            fontWeight = FontWeight.Bold,
+            fontSize = 16.sp
+        )
     }
 }

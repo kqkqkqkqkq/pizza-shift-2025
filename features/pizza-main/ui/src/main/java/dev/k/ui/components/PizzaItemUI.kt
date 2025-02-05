@@ -20,8 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import dev.k.ui_logic.models.PizzaUI
 import dev.k.ui.navigation.Screen
+import dev.k.ui_logic.models.PizzaUI
 
 @Composable
 fun PizzaItemUI(

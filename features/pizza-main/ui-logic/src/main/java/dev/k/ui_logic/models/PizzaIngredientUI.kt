@@ -8,4 +8,4 @@ data class PizzaIngredientUI(
     val name: String,
     val cost: Int,
     val img: String
-): Parcelable
+) : Parcelable

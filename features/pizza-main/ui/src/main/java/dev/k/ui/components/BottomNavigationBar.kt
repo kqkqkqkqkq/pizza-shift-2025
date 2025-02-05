@@ -77,11 +77,11 @@ fun RowScope.BottomBarItem(
                 contentDescription = "Bottom navigation",
             )
         },
-        selected = currentDestination?.hierarchy?.any{
+        selected = currentDestination?.hierarchy?.any {
             it.route == screen.route
         } == true,
         onClick = {
-            navController.navigate(screen.route){
+            navController.navigate(screen.route) {
                 popUpTo(screen.route) {
                     inclusive = true
                     saveState = true
