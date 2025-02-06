@@ -5,6 +5,7 @@ import kotlinx.serialization.SerialName
 enum class Dough {
     @SerialName("THIN")
     THIN,
+
     @SerialName("THICK")
     THICK,
 }

@@ -29,8 +29,8 @@ import dev.k.ui.R
 import dev.k.ui.components.BottomNavigationBar
 import dev.k.ui.components.CartItem
 import dev.k.ui.components.Header
-import dev.k.ui_kit.OrangeLight
-import dev.k.ui_kit.WhiteLight
+import dev.k.ui_kit.Orange
+import dev.k.ui_kit.White
 import dev.k.ui_logic.models.PizzaUI
 import dev.k.ui_logic.screens.cart_screen.CartScreenViewModel
 
@@ -122,7 +122,7 @@ fun OrderElement() {
             .fillMaxWidth()
             .height(128.dp),
         colors = CardDefaults.cardColors(
-            containerColor = WhiteLight,
+            containerColor = White,
         ),
     ) {
         Column(
@@ -150,11 +150,11 @@ fun OrderElement() {
                     TODO("Navigate to make order screen")
                 },
                 colors = ButtonDefaults.textButtonColors(
-                    containerColor = OrangeLight,
+                    containerColor = Orange,
                 )
             ) {
                 Text(
-                    color = WhiteLight,
+                    color = White,
                     text = stringResource(R.string.make_order),
                 )
             }

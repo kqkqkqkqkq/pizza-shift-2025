@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import dev.k.ui_kit.PizzaTheme
 
 @Composable
 fun ErrorMessage(
@@ -21,7 +22,11 @@ fun ErrorMessage(
                 .padding(8.dp),
             contentAlignment = Alignment.Center
         ) {
-            Text(message)
+            Text(
+                text = message,
+                style = PizzaTheme.typography.bodyLarge,
+                color = PizzaTheme.colorScheme.onBackground,
+            )
         }
     }
 }

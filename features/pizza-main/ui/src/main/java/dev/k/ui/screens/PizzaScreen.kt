@@ -48,14 +48,11 @@ internal fun PizzaScreenUI(
         topBar = {
             Header(stringResource(R.string.pizza))
         }
-    ) { padding ->
+    ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(
-                    top = padding.calculateTopPadding(),
-                    bottom = padding.calculateBottomPadding(),
-                ),
+                .padding(paddingValues),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {

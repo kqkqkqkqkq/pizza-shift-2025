@@ -15,32 +15,27 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = BlueDark,
-    secondary = BrownDark,
-    background = BlackDark,
+    background = Black,
+    onBackground = White,
+    primary = Blue,
+    onPrimary = Black,
+    secondary = Brown,
+    onSecondary = White,
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = OrangeLight,
-    secondary = GrayLight,
-    background = WhiteLight,
-
-    /* Other default colors to override
-    tertiary =
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    background = White,
+    onBackground = Black,
+    primary = Orange,
+    onPrimary = White,
+    secondary = Gray,
+    onSecondary = Black,
 )
 
 @Composable
 fun ShiftTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

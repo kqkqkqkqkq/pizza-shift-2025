@@ -14,13 +14,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import dev.k.ui.navigation.Screen
+import dev.k.ui_kit.PizzaTheme
 import dev.k.ui_logic.models.PizzaUI
 
 @Composable
@@ -44,7 +42,7 @@ fun PizzaItemUI(
                 .padding(start = 16.dp, bottom = 12.dp)
                 .size(116.dp),
             model = pizza.img,
-            contentDescription = "pizza image"
+            contentDescription = "Pizza image"
         )
         Column(
             modifier = Modifier
@@ -55,23 +53,20 @@ fun PizzaItemUI(
         ) {
             Text(
                 text = pizza.name,
-                color = Color.Black,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
+                color = PizzaTheme.colorScheme.onBackground,
+                style = PizzaTheme.typography.titleSmall,
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = pizza.description,
-                color = Color.Black.copy(alpha = 0.6f),
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Normal,
+                color = PizzaTheme.colorScheme.onBackground.copy(alpha = 0.75f),
+                style = PizzaTheme.typography.bodySmall,
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = "От ${pizza.sizes.first().price} ₽",
-                color = Color.Black,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
+                color = PizzaTheme.colorScheme.onBackground,
+                style = PizzaTheme.typography.titleSmall,
             )
         }
     }

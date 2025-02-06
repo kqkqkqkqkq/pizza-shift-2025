@@ -13,7 +13,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -22,11 +21,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import dev.k.ui_kit.PizzaTheme
 import dev.k.ui_logic.models.PizzaUI
 import dev.k.ui_logic.screens.cart_screen.CartScreenViewModel
 
@@ -45,29 +42,47 @@ fun CartItem(
     ) {
         AsyncImage(
             model = pizza.img,
-            contentDescription = "cart",
+            contentDescription = "Cart",
             modifier = Modifier
                 .size(64.dp)
                 .clip(CircleShape)
         )
-
         Spacer(modifier = Modifier.width(16.dp))
 
         Column(modifier = Modifier.weight(1f)) {
-            Text(text = pizza.name, fontWeight = FontWeight.Medium, fontSize = 16.sp)
-            Text(text = pizza.description, fontSize = 12.sp, color = Color.Gray)
+            Text(
+                text = pizza.name,
+                style = PizzaTheme.typography.titleSmall,
+                color = PizzaTheme.colorScheme.onBackground,
+            )
+            Text(
+                text = pizza.description,
+                style = PizzaTheme.typography.bodySmall,
+                color = PizzaTheme.colorScheme.secondary,
+            )
             Spacer(modifier = Modifier.height(4.dp))
-
             Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = { if (quantity.value > 1) viewModel.quantityChange(quantity.value - 1) }) {
+                IconButton(onClick = {
+                    if (quantity.value > 1)
+                        viewModel.quantityChange(quantity.value - 1)
+                }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                         contentDescription = "Decrease"
                     )
                 }
-                Text(text = "${quantity.value}", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                IconButton(onClick = { viewModel.quantityChange(quantity.value + 1) }) {
-                    Icon(imageVector = Icons.Default.Add, contentDescription = "Increase")
+                Text(
+                    text = "${quantity.value}",
+                    style = PizzaTheme.typography.titleSmall,
+                )
+                IconButton(
+                    onClick = {
+                        viewModel.quantityChange(quantity.value + 1)
+                    }) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Increase"
+                    )
                 }
                 Spacer(modifier = Modifier.width(8.dp))
                 IconButton(
@@ -75,15 +90,16 @@ fun CartItem(
                         viewModel.deleteFromCart(pizza)
                     }
                 ) {
-                    Icon(imageVector = Icons.Default.Delete, contentDescription = "Increase")
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Delete"
+                    )
                 }
             }
         }
-
         Text(
             text = "${pizza.sizes.first().price * quantity.value} ₽",
-            fontWeight = FontWeight.Bold,
-            fontSize = 16.sp
+            style = PizzaTheme.typography.titleSmall,
         )
     }
 }

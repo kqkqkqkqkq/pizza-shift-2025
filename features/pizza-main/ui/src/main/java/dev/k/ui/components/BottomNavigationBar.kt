@@ -4,22 +4,18 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemColors
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import dev.k.ui.navigation.Screen
-import dev.k.ui_kit.GrayLight
-import dev.k.ui_kit.OrangeLight
-import dev.k.ui_kit.WhiteLight
+import dev.k.ui_kit.PizzaTheme
 
 @Composable
 fun BottomNavigationBar(
@@ -36,13 +32,13 @@ fun BottomNavigationBar(
     val currentDestination = navBackStackEntry?.destination
 
     NavigationBar(
-        containerColor = WhiteLight
+        containerColor = PizzaTheme.colorScheme.background
     ) {
         screens.forEach {
             BottomBarItem(
                 screen = it,
                 currentDestination = currentDestination,
-                navController = navController
+                navController = navController,
             )
         }
     }
@@ -55,20 +51,19 @@ fun RowScope.BottomBarItem(
     navController: NavHostController
 ) {
     NavigationBarItem(
-        colors = NavigationBarItemColors(
-            selectedIconColor = OrangeLight,
-            unselectedIconColor = GrayLight,
-            selectedTextColor = OrangeLight,
-            unselectedTextColor = GrayLight,
-            selectedIndicatorColor = Color.Transparent,
+        colors = NavigationBarItemDefaults.colors(
+            selectedIconColor = PizzaTheme.colorScheme.primary,
+            unselectedIconColor = PizzaTheme.colorScheme.secondary,
+            selectedTextColor = PizzaTheme.colorScheme.primary,
+            unselectedTextColor = PizzaTheme.colorScheme.secondary,
+            indicatorColor = Color.Transparent,
             disabledIconColor = Color.Transparent,
             disabledTextColor = Color.Transparent,
         ),
         label = {
             Text(
                 text = screen.title,
-                fontWeight = FontWeight.Light,
-                fontSize = 12.sp,
+                style = PizzaTheme.typography.labelSmall,
             )
         },
         icon = {

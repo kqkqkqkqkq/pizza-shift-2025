@@ -24,7 +24,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonColors
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -50,7 +50,8 @@ import coil.compose.AsyncImage
 import dev.k.ui.R
 import dev.k.ui.components.Header
 import dev.k.ui.navigation.Screen
-import dev.k.ui_kit.OrangeLight
+import dev.k.ui_kit.Orange
+import dev.k.ui_kit.PizzaTheme
 import dev.k.ui_logic.models.PizzaIngredientUI
 import dev.k.ui_logic.models.PizzaSizeUI
 import dev.k.ui_logic.models.PizzaUI
@@ -90,16 +91,11 @@ internal fun PizzaDetailScreenUI(
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState)
         }
-    ) { padding ->
+    ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(
-                    start = 12.dp,
-                    top = padding.calculateTopPadding() + 12.dp,
-                    end = 12.dp,
-                    bottom = padding.calculateBottomPadding(),
-                ),
+                .padding(paddingValues),
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
@@ -113,10 +109,11 @@ internal fun PizzaDetailScreenUI(
                 AsyncImage(
                     modifier = Modifier.size(220.dp),
                     model = pizza.img,
-                    contentDescription = "pizza detail image"
+                    contentDescription = "Pizza detail image"
                 )
             }
-            Row() {
+            Row {
+                //TODO(переверстать экран)
                 Column {
                     Text(
                         text = pizza.name,
@@ -144,7 +141,7 @@ internal fun PizzaDetailScreenUI(
                             )
                         }
                     },
-                    colors = IconButtonColors(
+                    colors = IconButtonDefaults.iconButtonColors(
                         containerColor = Color.White,
                         contentColor = Color.Transparent,
                         disabledContainerColor = Color.Transparent,
@@ -153,8 +150,8 @@ internal fun PizzaDetailScreenUI(
                 ) {
                     Icon(
                         Icons.Default.Add,
-                        contentDescription = "add pizza to cart",
-                        tint = Color.Black,
+                        contentDescription = "Add pizza to cart",
+                        tint = PizzaTheme.colorScheme.onBackground,
                     )
                 }
             }
@@ -241,7 +238,7 @@ fun AdditiveItem(
             .clickable { onClick() }
             .border(
                 width = 4.dp,
-                color = if (isSelected) OrangeLight.copy(alpha = 0.5f) else Color.Transparent,
+                color = if (isSelected) Orange.copy(alpha = 0.5f) else Color.Transparent,
                 shape = RoundedCornerShape(12.dp)
             ),
         shape = RoundedCornerShape(12.dp),
