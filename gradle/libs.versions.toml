@@ -26,10 +26,17 @@ androidx-compose-runtime = "1.6.0"
 hiltNavigationCompose = "1.2.0"
 room = "2.6.1"
 ksp = "2.0.20-1.0.25"
+decompose = "3.2.2"
+
+minSdk = "24"
+compileSdk = "34"
+targetSdk = "34"
+jvmTarget = "11"
 
 [libraries]
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 
 # Retrofit
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }

@@ -5,23 +5,18 @@ plugins {
 
 android {
     namespace = "dev.k.pizza_data"
-    compileSdk = 34
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 24
+        minSdk = libs.versions.minSdk.get().toInt()
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-        }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = libs.versions.jvmTarget.get()
     }
 }
 
@@ -33,6 +28,6 @@ dependencies {
 
     implementation(libs.javax.inject)
 
-    implementation(project(":pizza-api"))
-    implementation(project(":pizza-database"))
+    implementation(project(":pizza-core:pizza-api"))
+    implementation(project(":pizza-core:pizza-database"))
 }
