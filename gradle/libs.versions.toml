@@ -27,6 +27,11 @@ hiltNavigationCompose = "1.2.0"
 room = "2.6.1"
 ksp = "2.0.20-1.0.25"
 
+minSdk = "24"
+compileSdk = "34"
+targetSdk = "34"
+jvmTarget = "11"
+
 [libraries]
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }

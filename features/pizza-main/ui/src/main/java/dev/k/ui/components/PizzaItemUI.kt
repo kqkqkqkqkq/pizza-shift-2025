@@ -17,9 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import dev.k.ui.navigation.Screen
-import dev.k.ui_kit.PizzaTheme
-import dev.k.ui_logic.models.PizzaUI
+import dev.k.ui_kit.Destinations
+import dev.k.ui_kit.theme.PizzaTheme
+import dev.k.ui_utils.models.PizzaUI
 
 @Composable
 fun PizzaItemUI(
@@ -32,7 +32,7 @@ fun PizzaItemUI(
             .height(128.dp)
             .clickable {
                 navController.currentBackStackEntry?.savedStateHandle?.set("pizzaUI", pizza)
-                navController.navigate(Screen.PIZZA_DETAIL)
+                navController.navigate(Destinations.PIZZA_DETAIL_SCREEN)
             },
         horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically,

@@ -6,17 +6,17 @@ plugins {
 
 android {
     namespace = "dev.k.ui_kit"
-    compileSdk = 34
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 24
+        minSdk = libs.versions.minSdk.get().toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = libs.versions.jvmTarget.get()
     }
 }
 
@@ -29,6 +29,6 @@ dependencies {
     api(libs.androidx.ui.tooling.preview)
     api(libs.androidx.compose.runtime)
     api(libs.androidx.material3)
-    debugApi(libs.androidx.ui.tooling)
-    debugApi(libs.androidx.ui.test.manifest)
+    api(libs.androidx.navigation.compose)
+    api(libs.androidx.hilt.navigation.compose)
 }
