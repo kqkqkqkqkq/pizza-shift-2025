@@ -53,6 +53,9 @@ import dev.k.ui_kit.components.TopBar
 import dev.k.ui_kit.theme.Orange
 import dev.k.ui_kit.theme.PizzaTheme
 import dev.k.ui_logic.PizzaDetailVewModel
+import dev.k.ui_utils.mappers.getDoughMap
+import dev.k.ui_utils.mappers.getIngredientMap
+import dev.k.ui_utils.mappers.getSizeMap
 import dev.k.ui_utils.models.PizzaIngredientUI
 import dev.k.ui_utils.models.PizzaSizeUI
 import dev.k.ui_utils.models.PizzaUI
@@ -123,7 +126,7 @@ internal fun PizzaDetailScreenUI(
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "${pizza.sizes.first().name} ${pizza.doughs.first().name} тесто",
+                        text = "${getSizeMap(pizza.sizes.first().name)} ${getDoughMap(pizza.doughs.first().name)} тесто",
                         color = Color.Black.copy(alpha = 0.6f),
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Normal,
@@ -206,7 +209,7 @@ fun PizzaSizeSelector(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
-                        text = size.name,
+                        text = getSizeMap(size.name),
                         color = if (isSelected) Color.Black else Color.Gray,
                         fontWeight = FontWeight.Normal,
                         fontSize = 16.sp,
@@ -263,7 +266,7 @@ fun AdditiveItem(
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = name, fontSize = 14.sp, textAlign = TextAlign.Center)
+            Text(text = getIngredientMap(name), fontSize = 14.sp, textAlign = TextAlign.Center)
             Spacer(modifier = Modifier.weight(1f))
             Text(text = "$price ₽", fontWeight = FontWeight.Bold)
         }

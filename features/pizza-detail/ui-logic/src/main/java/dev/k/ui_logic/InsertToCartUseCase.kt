@@ -9,6 +9,6 @@ internal class InsertToCartUseCase @Inject constructor(
     private val repository: PizzaRepository,
 ) {
     suspend operator fun invoke(data: PizzaUI) {
-        repository.insertToCars(data.toPizza())
+        repository.insertToCart(data.toPizza())
     }
 }

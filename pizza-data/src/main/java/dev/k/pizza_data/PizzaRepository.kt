@@ -22,7 +22,7 @@ class PizzaRepository @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
 
-    suspend fun insertToCars(data: Pizza) {
+    suspend fun insertToCart(data: Pizza) {
         database.pizzaDao.insert(data.toPizzaDBO())
     }
 
@@ -42,27 +42,6 @@ class PizzaRepository @Inject constructor(
             Log.e(LOG_TAG, response.reason ?: "Unknown error")
             emit(emptyList())
         }
-    }
-
-    suspend fun pay() {
-        api.pay()
-    }
-
-    fun getOrders() {
-        TODO("implement")
-        // @Header("authorization")
-        // authorization: String, )
-    }
-
-    public fun getOderById() {
-        TODO("implement")
-        // @Header("authorization") authorization: String,
-        // @Path("orderId") orderId: String, )
-    }
-
-    public fun cancelOrder() {
-        TODO("implement")
-        // @Header("authorization") authorization: String, )
     }
 
     private companion object {
