@@ -1,10 +1,3 @@
 <resources>
     <string name="pizza">Пицца</string>
-    <string name="orders">Заказы</string>
-    <string name="profile">Профиль</string>
-    <string name="cart">Корзина</string>
-    <string name="add_to_taste">Добавить по вкусу</string>
-    <string name="empty_cart">Ваша корзина пуста</string>
-    <string name="make_order">Оформить заказ</string>
-    <string name="order_cost">Стоимость заказа</string>
 </resources>

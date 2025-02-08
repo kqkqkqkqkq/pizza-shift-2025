@@ -5,7 +5,6 @@ plugins {
 
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.kapt)
-    id("kotlin-parcelize")
 }
 
 android {
@@ -47,20 +46,18 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
 
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
+
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
 
-    implementation(libs.decompose)
-
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
-
-    implementation(project(":features:pizza-main:ui"))
-    implementation(project(":pizza-core:pizza-api"))
-    implementation(project(":pizza-core:pizza-database"))
+    implementation(project(":pizza-api"))
+    implementation(project(":pizza-database"))
     implementation(project(":ui-kit"))
+    implementation(project(":features:pizza-main:ui"))
+    implementation(project(":features:cart:ui"))
+    implementation(project(":features:orders:ui"))
+    implementation(project(":features:profile:ui"))
+    implementation(project(":features:pizza-detail:ui"))
 }

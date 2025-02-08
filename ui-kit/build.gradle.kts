@@ -29,4 +29,6 @@ dependencies {
     api(libs.androidx.ui.tooling.preview)
     api(libs.androidx.compose.runtime)
     api(libs.androidx.material3)
+    api(libs.androidx.navigation.compose)
+    api(libs.androidx.hilt.navigation.compose)
 }

@@ -3,11 +3,10 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.kapt)
-    id("kotlin-parcelize")
 }
 
 android {
-    namespace = "dev.k.ui_logic"
+    namespace = "dev.k.featues.pizza_main.ui_logic"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -29,11 +28,11 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.kotlinx.coroutines.android)
-    compileOnly(libs.androidx.compose.runtime)
 
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
-    implementation(libs.androidx.hilt.navigation.compose)
 
-    api(project(":pizza-core:pizza-data"))
+    implementation(project(":ui-utils"))
+    implementation(project(":pizza-data"))
 }
