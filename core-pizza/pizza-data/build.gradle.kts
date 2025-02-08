@@ -1,12 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    id("kotlin-parcelize")
 }
 
 android {
-    namespace = "dev.k.ui_utils"
+    namespace = "dev.k.pizza_data"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -26,6 +24,10 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(project(":ui-kit"))
-    implementation(project(":core-pizza:pizza-data"))
+    implementation(libs.material)
+
+    implementation(libs.javax.inject)
+
+    implementation(project(":core-pizza:pizza-api"))
+    implementation(project(":core-pizza:pizza-database"))
 }

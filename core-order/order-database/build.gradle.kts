@@ -1,12 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    id("kotlin-parcelize")
+    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "dev.k.ui_utils"
+    namespace = "dev.k.order_database"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -25,7 +24,6 @@ android {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(project(":ui-kit"))
-    implementation(project(":core-pizza:pizza-data"))
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 }

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.k.pizza_data"
+    namespace = "dev.k.order_data"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -28,6 +28,6 @@ dependencies {
 
     implementation(libs.javax.inject)
 
-    implementation(project(":pizza-api"))
-    implementation(project(":pizza-database"))
+    implementation(project(":core-order:order-api"))
+    implementation(project(":core-order:order-database"))
 }
