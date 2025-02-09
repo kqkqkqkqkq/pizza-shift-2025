@@ -1,7 +1,6 @@
 package dev.k.pizza_data.models
 
 data class Pizza(
-    val id: String,
     val name: String,
     val ingredients: List<PizzaIngredient>,
     val toppings: List<PizzaIngredient>,

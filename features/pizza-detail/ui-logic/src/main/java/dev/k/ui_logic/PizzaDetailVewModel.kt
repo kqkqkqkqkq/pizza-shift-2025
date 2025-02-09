@@ -18,24 +18,42 @@ class PizzaDetailVewModel @Inject internal constructor(
     private val _selectedSize = MutableStateFlow(0)
     val selectedSize: StateFlow<Int> = _selectedSize
 
-    private val _selectedAdditions = MutableStateFlow(emptySet<String>())
-    val selectedAdditions: StateFlow<Set<String>> = _selectedAdditions
+    private val _selectedDough = MutableStateFlow(0)
+    val selectedDough: StateFlow<Int> = _selectedDough
+
+    private val _selectedAdditions = MutableStateFlow(emptyList<String>())
+    val selectedAdditions: StateFlow<List<String>> = _selectedAdditions
 
     fun selectSize(position: Int) {
         _selectedSize.value = position
     }
 
-    fun selectAdditions(additions: Set<String>) {
+    fun selectDough(position: Int) {
+        _selectedDough.value = position
+    }
+
+    fun selectAdditions(additions: List<String>) {
         _selectedAdditions.value = additions
     }
 
+    private fun calculateCost(data: PizzaUI): Int =
+        data.sizes[_selectedSize.value].price +
+                data.doughs[_selectedDough.value].price +
+                data.toppings.sumOf { it.cost }
+
+
     fun insert(data: PizzaUI) {
         val pizza = data.copy(
-            sizes = listOf(data.sizes[_selectedSize.value]),
             toppings = data.toppings.filter { it.name in selectedAdditions.value }
         )
+        val pizzaCost = calculateCost(pizza)
         viewModelScope.launch {
-            insertToCartUseCase.get().invoke(pizza)
+            insertToCartUseCase.get().invoke(
+                data = pizza,
+                sizeIndex = _selectedSize.value,
+                doughIndex = _selectedDough.value,
+                cost = pizzaCost,
+            )
         }
     }
 }

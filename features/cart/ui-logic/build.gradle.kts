@@ -34,5 +34,5 @@ dependencies {
     kapt(libs.dagger.hilt.compiler)
 
     implementation(project(":ui-utils"))
-    implementation(project(":core-pizza:pizza-data"))
+    implementation(project(":core-order:order-data"))
 }

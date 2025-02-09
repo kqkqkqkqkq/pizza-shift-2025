@@ -3,45 +3,21 @@ package dev.k.ui_logic
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.k.ui_utils.models.PizzaUI
-import kotlinx.coroutines.flow.MutableStateFlow
+import dev.k.ui_utils.mappers.toPizzaUI
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 import javax.inject.Provider
 
 @HiltViewModel
 class CartScreenViewModel @Inject internal constructor(
-    private val getCartUseCase: Provider<GetCartUseCase>,
-    private val deleteFromCartUseCase: Provider<DeleteFromCartUseCase>,
-) : ViewModel() {
+    getCartUseCase: Provider<GetCartUseCase>
+): ViewModel() {
 
-    private val _quantity = MutableStateFlow(1)
-    val quantity: StateFlow<Int> = _quantity
-
-    private var _state = MutableStateFlow<Set<PizzaUI>>(emptySet())
-    val state: StateFlow<Set<PizzaUI>> = _state
-
-    init {
-        updateState()
-    }
-
-    private fun updateState() {
-        viewModelScope.launch {
-            getCartUseCase.get().invoke().collect {
-                it.also { _state.value = it.toSet() }
-            }
-        }
-    }
-
-    fun deleteFromCart(data: PizzaUI) {
-        viewModelScope.launch {
-            deleteFromCartUseCase.get().invoke(data)
-        }
-        updateState()
-    }
-
-    fun quantityChange(amount: Int) {
-        _quantity.value = amount
-    }
+    val state: StateFlow<CartScreenState> =
+        getCartUseCase.get().invoke()
+            .map { CartScreenState.Content(it) }
+            .stateIn(viewModelScope, SharingStarted.Lazily, CartScreenState.Initial)
 }

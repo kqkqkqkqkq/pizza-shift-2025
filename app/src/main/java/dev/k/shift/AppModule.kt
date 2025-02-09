@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import dev.k.order_database.OrderDatabase
 import dev.k.pizza_api.PizzaApi
 import dev.k.pizza_api.createPizzaApi
 import dev.k.pizza_database.PizzaDatabase
@@ -25,4 +26,10 @@ object AppModule {
     fun providePizzaDatabase(
         @ApplicationContext context: Context
     ): PizzaDatabase = PizzaDatabase(context)
+
+    @Provides
+    @Singleton
+    fun provideOrderDatabase(
+        @ApplicationContext context: Context
+    ): OrderDatabase = OrderDatabase(context)
 }

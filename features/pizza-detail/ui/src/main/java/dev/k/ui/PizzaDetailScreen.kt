@@ -1,63 +1,50 @@
 package dev.k.ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import dev.k.features.pizza_detail.ui.R
+import dev.k.ui.components.AdditionsBottomSheet
+import dev.k.ui.components.DoughSelector
+import dev.k.ui.components.SizeSelector
 import dev.k.ui_kit.Destinations
 import dev.k.ui_kit.components.TopBar
 import dev.k.ui_kit.theme.Orange
 import dev.k.ui_kit.theme.PizzaTheme
+import dev.k.ui_kit.theme.White
 import dev.k.ui_logic.PizzaDetailVewModel
-import dev.k.ui_utils.mappers.getDoughMap
-import dev.k.ui_utils.mappers.getIngredientMap
-import dev.k.ui_utils.mappers.getSizeMap
-import dev.k.ui_utils.models.PizzaIngredientUI
-import dev.k.ui_utils.models.PizzaSizeUI
 import dev.k.ui_utils.models.PizzaUI
 import kotlinx.coroutines.launch
 
@@ -70,6 +57,7 @@ fun PizzaDetailScreen(
     PizzaDetailScreenUI(pizza, viewModel, navController)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun PizzaDetailScreenUI(
     pizza: PizzaUI,
@@ -77,8 +65,12 @@ internal fun PizzaDetailScreenUI(
     navController: NavHostController,
 ) {
     val selectedSize by viewModel.selectedSize.collectAsState()
-    val pizzaSizesList = pizza.sizes
+    val selectedDough by viewModel.selectedDough.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
+    var isBottomSheetVisible by rememberSaveable { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
     val scope = rememberCoroutineScope()
 
     Scaffold(
@@ -99,7 +91,7 @@ internal fun PizzaDetailScreenUI(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues),
-            horizontalAlignment = Alignment.Start,
+            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Box(
@@ -115,194 +107,56 @@ internal fun PizzaDetailScreenUI(
                     contentDescription = "Pizza detail image"
                 )
             }
-            Row {
-                //TODO(переверстать экран)
-                Column {
-                    Text(
-                        text = pizza.name,
-                        color = Color.Black,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Medium,
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = "${getSizeMap(pizza.sizes.first().name)} ${getDoughMap(pizza.doughs.first().name)} тесто",
-                        color = Color.Black.copy(alpha = 0.6f),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Normal,
-                    )
-                }
-                Spacer(modifier = Modifier.weight(1f))
-                IconButton(
-                    modifier = Modifier
-                        .size(48.dp),
-                    onClick = {
-                        viewModel.insert(pizza)
-                        scope.launch {
-                            snackbarHostState.showSnackbar(
-                                message = "${pizza.name} добавлена в корзину",
-                            )
-                        }
-                    },
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = Color.White,
-                        contentColor = Color.Transparent,
-                        disabledContainerColor = Color.Transparent,
-                        disabledContentColor = Color.Transparent,
-                    ),
-                ) {
-                    Icon(
-                        Icons.Default.Add,
-                        contentDescription = "Add pizza to cart",
-                        tint = PizzaTheme.colorScheme.onBackground,
-                    )
-                }
-            }
+            Text(
+                text = pizza.name,
+                color = PizzaTheme.colorScheme.onBackground,
+                style = PizzaTheme.typography.titleLarge,
+            )
             Text(
                 text = pizza.description,
-                color = Color.Black.copy(alpha = 0.6f),
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Normal,
+                color = PizzaTheme.colorScheme.secondary,
+                style = PizzaTheme.typography.bodyLarge,
             )
-            PizzaSizeSelector(
-                sizes = pizzaSizesList,
+            SizeSelector(
+                sizes = pizza.sizes,
                 selectedIndex = selectedSize,
                 onOptionSelected = { viewModel.selectSize(it) }
             )
-            Text(
-                text = stringResource(R.string.add_to_taste),
-                color = Color.Black,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
+            DoughSelector(
+                doughs = pizza.doughs,
+                selectedIndex = selectedDough,
+                onOptionSelected = { viewModel.selectDough(it) }
             )
-            AdditivesGrid(viewModel, pizza.toppings)
-        }
-    }
-}
-
-@Composable
-fun PizzaSizeSelector(
-    sizes: List<PizzaSizeUI>,
-    selectedIndex: Int,
-    onOptionSelected: (Int) -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .padding(8.dp)
-            .background(Color(0xFFF5F6F7), shape = RoundedCornerShape(20.dp))
-            .border(1.dp, Color.LightGray, RoundedCornerShape(20.dp)),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        sizes.forEachIndexed { index, size ->
-            val isSelected = index == selectedIndex
-
-            TextButton(
-                onClick = { onOptionSelected(index) },
-                modifier = Modifier
-                    .weight(1f)
-                    .clip(RoundedCornerShape(20.dp))
-                    .background(if (isSelected) Color.White else Color.Transparent)
-            ) {
-                Column(
-                    modifier = Modifier,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    Text(
-                        text = getSizeMap(size.name),
-                        color = if (isSelected) Color.Black else Color.Gray,
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 16.sp,
-                    )
-                    Text(
-                        text = "${size.price} ₽",
-                        color = if (isSelected) Color.Black else Color.Gray,
-                        fontWeight = FontWeight.Normal,
-                        fontSize = 8.sp
-                    )
-                }
-
-            }
-        }
-    }
-}
-
-@Composable
-fun AdditiveItem(
-    name: String,
-    price: String,
-    image: String,
-    isSelected: Boolean,
-    onClick: () -> Unit,
-) {
-    Card(
-        modifier = Modifier
-            .size(width = 104.dp, height = 172.dp)
-            .clickable { onClick() }
-            .border(
-                width = 4.dp,
-                color = if (isSelected) Orange.copy(alpha = 0.5f) else Color.Transparent,
-                shape = RoundedCornerShape(12.dp)
-            ),
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(4.dp),
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top,
-            modifier = Modifier
-                .padding(8.dp)
-                .fillMaxSize()
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                contentAlignment = Alignment.Center,
-            ) {
-                AsyncImage(
-                    model = image,
-                    contentDescription = "addition",
-                    modifier = Modifier.size(64.dp),
-                )
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = getIngredientMap(name), fontSize = 14.sp, textAlign = TextAlign.Center)
             Spacer(modifier = Modifier.weight(1f))
-            Text(text = "$price ₽", fontWeight = FontWeight.Bold)
-        }
-    }
-}
-
-@Composable
-fun AdditivesGrid(
-    viewModel: PizzaDetailVewModel,
-    additives: List<PizzaIngredientUI>,
-) {
-    val selectedItems by viewModel.selectedAdditions.collectAsState()
-
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
-        contentPadding = PaddingValues(8.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        items(additives) { item ->
-            val isSelected = selectedItems.contains(item.name)
-            Box {
-                AdditiveItem(
-                    name = item.name,
-                    price = item.cost.toString(),
-                    image = item.img,
-                    isSelected = isSelected,
-                    onClick = {
-                        val updatedSelection = if (isSelected) {
-                            selectedItems - item.name
-                        } else {
-                            selectedItems + item.name
-                        }
-                        viewModel.selectAdditions(updatedSelection)
+            TextButton(
+                modifier = Modifier
+                    .fillMaxWidth(0.75f)
+                    .padding(vertical = 24.dp),
+                onClick = {
+                    scope.launch {
+                        isBottomSheetVisible = true
+                        sheetState.expand()
                     }
+                },
+                colors = ButtonDefaults.textButtonColors(
+                    containerColor = Orange,
+                )
+            ) {
+                Text(
+                    color = White,
+                    text = stringResource(R.string.add_to_cart),
                 )
             }
+            AdditionsBottomSheet(
+                viewModel = viewModel,
+                additives = pizza.toppings,
+                isBottomSheetVisible = isBottomSheetVisible,
+                sheetState = sheetState,
+                onDismiss = {
+                    scope.launch { sheetState.hide() }
+                        .invokeOnCompletion { isBottomSheetVisible = false }
+                }
+            )
         }
     }
 }

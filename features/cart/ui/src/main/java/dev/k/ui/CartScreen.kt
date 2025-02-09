@@ -17,37 +17,29 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import dev.k.features.cart.ui.R
-import dev.k.ui.components.CartItem
 import dev.k.ui_kit.components.BottomNavigationBar
 import dev.k.ui_kit.components.TopBar
 import dev.k.ui_kit.theme.Orange
 import dev.k.ui_kit.theme.White
-import dev.k.ui_logic.CartScreenViewModel
 import dev.k.ui_utils.models.PizzaUI
 
 @Composable
 fun CartScreen(
     navController: NavHostController,
 ) {
-    val viewModel: CartScreenViewModel = hiltViewModel()
-    CartScreenUI(viewModel, navController = navController)
+    CartScreenUI(navController = navController)
 }
 
 @Composable
 internal fun CartScreenUI(
-    viewModel: CartScreenViewModel,
     navController: NavHostController,
 ) {
-    val state by viewModel.state.collectAsState()
 
     Scaffold(
         bottomBar = {
@@ -67,14 +59,12 @@ internal fun CartScreenUI(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
-            CartScreenContent(viewModel, state.toList())
         }
     }
 }
 
 @Composable
 fun CartScreenContent(
-    viewModel: CartScreenViewModel,
     cartList: List<PizzaUI>,
 ) {
     if (cartList.isNotEmpty()) {
@@ -92,7 +82,7 @@ fun CartScreenContent(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 items(cartList) {
-                    CartItem(it, viewModel)
+
                 }
             }
             // TODO()

@@ -28,4 +28,5 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(project(":ui-kit"))
     implementation(project(":core-pizza:pizza-data"))
+    implementation(project(":core-order:order-data"))
 }

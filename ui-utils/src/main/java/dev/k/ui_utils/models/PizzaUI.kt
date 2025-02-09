@@ -5,7 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PizzaUI(
-    val id: String,
     val name: String,
     val ingredients: List<PizzaIngredientUI>,
     val toppings: List<PizzaIngredientUI>,

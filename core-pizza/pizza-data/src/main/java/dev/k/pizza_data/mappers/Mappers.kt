@@ -6,7 +6,6 @@ import dev.k.pizza_database.models.PizzaDBO
 
 internal fun PizzaDBO.toPizza(): Pizza {
     return Pizza(
-        id = id.toString(),
         name = name,
         ingredients = separateIngredients(ingredients),
         toppings = separateIngredients(toppings),
@@ -50,7 +49,6 @@ internal fun Pizza.toPizzaDBO(): PizzaDBO =
 
 internal fun PizzaDTO.toPizza(): Pizza =
     Pizza(
-        id = id,
         name = name,
         ingredients = ingredients.map { it.toPizzaIngredient() },
         toppings = toppings.map { it.toPizzaIngredient() },
