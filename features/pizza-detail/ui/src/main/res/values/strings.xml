@@ -1,4 +1,5 @@
 <resources>
     <string name="pizza">Пицца</string>
     <string name="add_to_taste">Добавить по вкусу</string>
+    <string name="add_to_cart">Добавить в корзину</string>
 </resources>

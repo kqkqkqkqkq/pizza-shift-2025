@@ -52,8 +52,9 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
 
-    implementation(project(":pizza-api"))
-    implementation(project(":pizza-database"))
+    implementation(project(":core-pizza:pizza-api"))
+    implementation(project(":core-pizza:pizza-database"))
+    implementation(project(":core-order:order-database"))
     implementation(project(":ui-kit"))
     implementation(project(":features:pizza-main:ui"))
     implementation(project(":features:cart:ui"))

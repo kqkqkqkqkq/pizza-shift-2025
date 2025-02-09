@@ -29,6 +29,10 @@ include(":features:pizza-detail:ui-logic")
 
 include(":ui-kit")
 include(":ui-utils")
-include(":pizza-data")
-include(":pizza-api")
-include(":pizza-database")
+include(":core-pizza:pizza-data")
+include(":core-pizza:pizza-api")
+include(":core-pizza:pizza-database")
+
+include(":core-order:order-data")
+include(":core-order:order-api")
+include(":core-order:order-database")

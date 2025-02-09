@@ -1,5 +1,6 @@
 package dev.k.ui_utils.mappers
 
+import dev.k.order_data.models.Topping
 import dev.k.pizza_data.models.PizzaDough
 import dev.k.pizza_data.models.PizzaIngredient
 import dev.k.pizza_data.models.PizzaSize
@@ -24,3 +25,16 @@ fun PizzaSizeUI.toPizzaSize(): PizzaSize =
 
 fun PizzaDoughUI.toPizzaDough(): PizzaDough =
     PizzaDough(name = name, price = price)
+
+fun PizzaIngredientUI.toTopping() : Topping =
+    Topping(
+        name = name,
+        cost = cost,
+    )
+
+fun Topping.toPizzaIngredientUI() : PizzaIngredientUI =
+    PizzaIngredientUI(
+        name = name,
+        cost = cost,
+        img = "",
+    )
