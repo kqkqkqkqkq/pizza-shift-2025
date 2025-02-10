@@ -1,16 +1,20 @@
 package dev.k.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -66,7 +70,10 @@ internal fun PizzaDetailScreenUI(
 ) {
     val selectedSize by viewModel.selectedSize.collectAsState()
     val selectedDough by viewModel.selectedDough.collectAsState()
+
     val snackbarHostState = remember { SnackbarHostState() }
+    val snackbarMessage = stringResource(R.string.snackbar_message)
+
     var isBottomSheetVisible by rememberSaveable { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true
@@ -86,11 +93,16 @@ internal fun PizzaDetailScreenUI(
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState)
         }
-    ) { paddingValues ->
+    ) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues),
+                .padding(
+                    top = padding.calculateTopPadding(),
+                    start = 8.dp,
+                    bottom = padding.calculateBottomPadding(),
+                    end = 8.dp,
+                ),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
@@ -128,45 +140,75 @@ internal fun PizzaDetailScreenUI(
                 onOptionSelected = { viewModel.selectDough(it) }
             )
             Spacer(modifier = Modifier.weight(1f))
-            TextButton(
+            Row(
                 modifier = Modifier
-                    .fillMaxWidth(0.75f)
-                    .padding(vertical = 24.dp),
-                onClick = {
-                    scope.launch {
-                        isBottomSheetVisible = true
-                        sheetState.expand()
-                    }
-                },
-                colors = ButtonDefaults.textButtonColors(
-                    containerColor = PizzaTheme.colorScheme.secondary,
-                )
+                    .fillMaxWidth()
+                    .padding(
+                        start = 16.dp,
+                        end = 16.dp,
+                        bottom = 16.dp,
+                    ),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
             ) {
-                Text(
-                    color = PizzaTheme.colorScheme.onSecondary,
-                    text = stringResource(R.string.add_to_taste),
-                )
-            }
-            TextButton(
-                modifier = Modifier
-                    .fillMaxWidth(0.75f)
-                    .padding(vertical = 24.dp),
-                onClick = {
-                    viewModel.insert(pizza)
-                    scope.launch {
-                        snackbarHostState.showSnackbar(
-                            "Пицца добавлена в корзину"
-                        )
+                OutlinedButton(
+                    modifier = Modifier
+                        .fillMaxWidth(0.5f),
+                    shape = RoundedCornerShape(
+                        topStart = 16.dp,
+                        topEnd = 0.dp,
+                        bottomStart = 16.dp,
+                        bottomEnd = 0.dp,
+                    ),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        containerColor = PizzaTheme.colorScheme.background,
+                    ),
+                    border = BorderStroke(
+                        2.dp,
+                        PizzaTheme.colorScheme.secondary,
+                    ),
+                    onClick = {
+                        scope.launch {
+                            isBottomSheetVisible = true
+                            sheetState.expand()
+                        }
                     }
-                },
-                colors = ButtonDefaults.textButtonColors(
-                    containerColor = PizzaTheme.colorScheme.primary,
-                )
-            ) {
-                Text(
-                    color = PizzaTheme.colorScheme.onPrimary,
-                    text = stringResource(R.string.add_to_cart),
-                )
+                ) {
+                    Text(
+                        text = stringResource(R.string.additives),
+                        color = PizzaTheme.colorScheme.secondary,
+                        style = PizzaTheme.typography.bodyLarge,
+                    )
+                }
+                OutlinedButton(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    shape = RoundedCornerShape(
+                        topStart = 0.dp,
+                        topEnd = 16.dp,
+                        bottomStart = 0.dp,
+                        bottomEnd = 16.dp,
+                    ),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        containerColor = PizzaTheme.colorScheme.primary,
+                    ),
+                    border = BorderStroke(
+                        2.dp,
+                        PizzaTheme.colorScheme.primary,
+                    ),
+                    onClick = {
+                        viewModel.insert(pizza)
+                        scope.launch {
+                            snackbarHostState.showSnackbar(snackbarMessage)
+                        }
+                    }
+                ) {
+                    Text(
+                        text = stringResource(R.string.add_to_cart),
+                        color = PizzaTheme.colorScheme.onPrimary,
+                        style = PizzaTheme.typography.bodyLarge,
+                    )
+                }
             }
             AdditionsBottomSheet(
                 viewModel = viewModel,
