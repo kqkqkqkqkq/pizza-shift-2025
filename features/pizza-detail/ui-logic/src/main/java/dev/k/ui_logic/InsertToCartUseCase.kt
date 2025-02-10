@@ -10,11 +10,9 @@ internal class InsertToCartUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(
         data: PizzaUI,
-        sizeIndex: Int,
-        doughIndex: Int,
         cost: Int,
         quantity: Int = 1,
     ) {
-        repository.insertPizzaToCart(data.toCartPizza(sizeIndex, doughIndex, cost, quantity))
+        repository.insertPizzaToCart(data.toCartPizza(cost, quantity))
     }
 }

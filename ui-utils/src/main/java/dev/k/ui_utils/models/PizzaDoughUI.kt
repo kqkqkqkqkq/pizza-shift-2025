@@ -7,4 +7,5 @@ import kotlinx.parcelize.Parcelize
 data class PizzaDoughUI(
     val name: String,
     val price: Int,
+    var isSelected: Boolean,
 ) : Parcelable

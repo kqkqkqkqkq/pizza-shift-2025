@@ -16,17 +16,28 @@ internal fun OrderWithPizza.toOrder(): Order {
     )
 }
 
-internal fun CartPizzaDBO.toCartPizza(): CartPizza {
-    return CartPizza(
+internal fun CartPizzaDBO.toCartPizza(): CartPizza =
+    CartPizza(
         name = name,
-        toppings = toppings?.let { separateToppings(it) },
-        size = size,
-        dough = dough,
-        cost = cost,
+        ingredients = separateCartPizzaIngredients(ingredients),
+        toppings = separateCartPizzaIngredients(toppings),
+        description = description,
+        sizes = separateSizes(sizes),
+        doughs = separateDoughs(doughs),
+        calories = calories,
+        protein = protein,
+        totalFat = totalFat,
+        carbohydrates = carbohydrates,
+        sodium = sodium,
+        allergens = allergens.split(separateListPrefix),
+        isVegetarian = isVegetarian,
+        isGlutenFree = isGlutenFree,
+        isNew = isNew,
+        isHit = isHit,
         img = img,
         quantity = quantity,
+        cost = cost,
     )
-}
 
 internal fun Order.toOrderDBO(): OrderDBO {
     return OrderDBO(
@@ -37,14 +48,25 @@ internal fun Order.toOrderDBO(): OrderDBO {
     )
 }
 
-internal fun CartPizza.toCartPizzaDBO(): CartPizzaDBO {
-    return CartPizzaDBO(
+internal fun CartPizza.toCartPizzaDBO(): CartPizzaDBO =
+    CartPizzaDBO(
         name = name,
-        toppings = toppings?.let { joinToppings(it) },
-        size = size,
-        dough = dough,
-        cost = cost,
+        ingredients = joinCartPizzaIngredients(ingredients),
+        toppings = joinCartPizzaIngredients(toppings),
+        description = description,
+        sizes = joinSizes(sizes),
+        doughs = joinDoughs(doughs),
+        calories = calories,
+        protein = protein,
+        totalFat = totalFat,
+        carbohydrates = carbohydrates,
+        sodium = sodium,
+        allergens = allergens.joinToString(separateListPrefix),
+        isVegetarian = isVegetarian,
+        isGlutenFree = isGlutenFree,
+        isNew = isNew,
+        isHit = isHit,
         img = img,
         quantity = quantity,
+        cost = cost,
     )
-}

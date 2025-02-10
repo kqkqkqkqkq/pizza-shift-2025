@@ -139,11 +139,32 @@ internal fun PizzaDetailScreenUI(
                     }
                 },
                 colors = ButtonDefaults.textButtonColors(
-                    containerColor = Orange,
+                    containerColor = PizzaTheme.colorScheme.secondary,
                 )
             ) {
                 Text(
-                    color = White,
+                    color = PizzaTheme.colorScheme.onSecondary,
+                    text = stringResource(R.string.add_to_taste),
+                )
+            }
+            TextButton(
+                modifier = Modifier
+                    .fillMaxWidth(0.75f)
+                    .padding(vertical = 24.dp),
+                onClick = {
+                    viewModel.insert(pizza)
+                    scope.launch {
+                        snackbarHostState.showSnackbar(
+                            "Пицца добавлена в корзину"
+                        )
+                    }
+                },
+                colors = ButtonDefaults.textButtonColors(
+                    containerColor = PizzaTheme.colorScheme.primary,
+                )
+            ) {
+                Text(
+                    color = PizzaTheme.colorScheme.onPrimary,
                     text = stringResource(R.string.add_to_cart),
                 )
             }

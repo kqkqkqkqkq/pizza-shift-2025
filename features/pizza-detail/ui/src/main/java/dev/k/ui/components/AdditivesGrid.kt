@@ -7,8 +7,10 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.unit.dp
 import dev.k.ui_logic.PizzaDetailVewModel
 import dev.k.ui_utils.models.PizzaIngredientUI
@@ -18,7 +20,6 @@ fun AdditivesGrid(
     viewModel: PizzaDetailVewModel,
     additives: List<PizzaIngredientUI>,
 ) {
-    val selectedItems by viewModel.selectedAdditions.collectAsState()
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
@@ -26,7 +27,7 @@ fun AdditivesGrid(
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         items(additives) { item ->
-            val isSelected = selectedItems.contains(item.name)
+            var isSelected by remember { mutableStateOf(item.isSelected) }
             Box {
                 AdditiveItem(
                     name = item.name,
@@ -34,12 +35,8 @@ fun AdditivesGrid(
                     image = item.img,
                     isSelected = isSelected,
                     onClick = {
-                        val updatedSelection = if (isSelected) {
-                            selectedItems - item.name
-                        } else {
-                            selectedItems + item.name
-                        }
-                        viewModel.selectAdditions(updatedSelection)
+                        viewModel.selectAdditions(item)
+                        isSelected = !isSelected
                     }
                 )
             }
