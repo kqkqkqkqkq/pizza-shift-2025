@@ -18,7 +18,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.k.ui_utils.mappers.getDoughMap
-import dev.k.ui_utils.mappers.getSizeMap
 import dev.k.ui_utils.models.PizzaDoughUI
 
 @Composable

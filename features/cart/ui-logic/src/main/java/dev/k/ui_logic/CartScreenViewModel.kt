@@ -3,7 +3,6 @@ package dev.k.ui_logic
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.k.ui_utils.mappers.toPizzaUI
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -14,7 +13,7 @@ import javax.inject.Provider
 @HiltViewModel
 class CartScreenViewModel @Inject internal constructor(
     getCartUseCase: Provider<GetCartUseCase>
-): ViewModel() {
+) : ViewModel() {
 
     val state: StateFlow<CartScreenState> =
         getCartUseCase.get().invoke()

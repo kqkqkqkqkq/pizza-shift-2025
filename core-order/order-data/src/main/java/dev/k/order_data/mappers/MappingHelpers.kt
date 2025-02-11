@@ -5,7 +5,7 @@ import dev.k.order_data.models.OrderStatus
 import dev.k.order_database.models.CustomerDBO
 
 internal fun toOrderStatus(s: String): OrderStatus {
-    return when(s) {
+    return when (s) {
         "CANCELED" -> OrderStatus.CANCELED
         "COMPLETED" -> OrderStatus.COMPLETED
         "ACTIVE" -> OrderStatus.ACTIVE

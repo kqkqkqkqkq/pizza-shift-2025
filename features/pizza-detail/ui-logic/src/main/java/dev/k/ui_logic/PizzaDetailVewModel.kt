@@ -45,12 +45,13 @@ class PizzaDetailVewModel @Inject internal constructor(
         val pizzaCost = calculateCost(data)
         data.doughs[_selectedDough.value].isSelected = true
         data.sizes[_selectedSize.value].isSelected = true
+        data.quantity = 1
         viewModelScope.launch {
             insertToCartUseCase.get().invoke(
                 data = data,
                 cost = pizzaCost,
             )
         }
-        Log.e("inserted pizza", data.toString())
+        Log.e("Inserted pizza", data.toString())
     }
 }

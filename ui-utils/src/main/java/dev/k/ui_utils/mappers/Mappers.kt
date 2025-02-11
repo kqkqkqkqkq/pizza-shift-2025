@@ -3,7 +3,6 @@ package dev.k.ui_utils.mappers
 import dev.k.order_data.models.CartPizza
 import dev.k.pizza_data.models.Pizza
 import dev.k.ui_utils.models.PizzaUI
-import kotlin.math.cos
 
 fun Pizza.toPizzaUI(): PizzaUI =
     PizzaUI(
@@ -24,6 +23,8 @@ fun Pizza.toPizzaUI(): PizzaUI =
         isNew = isNew,
         isHit = isHit,
         img = img,
+        quantity = 0,
+        cost = 0,
     )
 
 fun PizzaUI.toPizza(): Pizza =
@@ -89,4 +90,6 @@ fun CartPizza.toPizzaUI() =
         isNew = isNew,
         isHit = isHit,
         img = img,
+        quantity = quantity,
+        cost = cost,
     )

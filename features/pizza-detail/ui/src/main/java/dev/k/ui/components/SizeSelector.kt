@@ -31,7 +31,8 @@ fun SizeSelector(
             .padding(8.dp)
             .background(
                 Color(0xFFF5F6F7),
-                shape = RoundedCornerShape(20.dp))
+                shape = RoundedCornerShape(20.dp)
+            )
             .border(1.dp, Color.LightGray, RoundedCornerShape(20.dp)),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

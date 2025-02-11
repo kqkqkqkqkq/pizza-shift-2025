@@ -1,7 +1,6 @@
 package dev.k.ui_logic
 
 import dev.k.order_data.OrderRepository
-import dev.k.order_data.models.CartPizza
 import dev.k.ui_utils.mappers.toPizzaUI
 import dev.k.ui_utils.models.PizzaUI
 import kotlinx.coroutines.flow.Flow
@@ -10,7 +9,7 @@ import javax.inject.Inject
 
 internal class GetCartUseCase @Inject constructor(
     private val repository: OrderRepository,
-){
+) {
     operator fun invoke(): Flow<List<PizzaUI>> =
         repository.getCart().map { it.map { it.toPizzaUI() } }
 }

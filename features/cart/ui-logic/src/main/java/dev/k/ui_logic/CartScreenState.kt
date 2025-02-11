@@ -10,5 +10,5 @@ sealed interface CartScreenState {
 
     data class Failure(val message: String?) : CartScreenState
 
-    data class Content(val pizzaList: List<PizzaUI>) : CartScreenState
+    data class Content(val cart: List<PizzaUI>) : CartScreenState
 }

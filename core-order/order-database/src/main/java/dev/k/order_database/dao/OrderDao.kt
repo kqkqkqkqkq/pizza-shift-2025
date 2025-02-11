@@ -8,7 +8,6 @@ import androidx.room.Transaction
 import dev.k.order_database.models.CartPizzaDBO
 import dev.k.order_database.models.OrderDBO
 import dev.k.order_database.models.OrderPizzaCrossRef
-import dev.k.order_database.models.OrderWithPizza
 
 @Dao
 interface OrderDao {

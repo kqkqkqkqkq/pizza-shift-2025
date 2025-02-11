@@ -22,4 +22,6 @@ data class PizzaUI(
     val isNew: Boolean,
     val isHit: Boolean,
     val img: String,
+    var quantity: Int,
+    var cost: Int,
 ) : Parcelable
