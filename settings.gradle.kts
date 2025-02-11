@@ -26,6 +26,8 @@ include(":features:profile:ui")
 include(":features:profile:ui-logic")
 include(":features:pizza-detail:ui")
 include(":features:pizza-detail:ui-logic")
+include(":features:make-order:ui")
+include(":features:make-order:ui-logic")
 
 include(":ui-kit")
 include(":ui-utils")

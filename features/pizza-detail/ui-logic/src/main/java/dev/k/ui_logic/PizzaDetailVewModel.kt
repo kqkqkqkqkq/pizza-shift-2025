@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.k.ui_utils.models.PizzaIngredientUI
 import dev.k.ui_utils.models.PizzaUI
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -46,7 +47,7 @@ class PizzaDetailVewModel @Inject internal constructor(
         data.doughs[_selectedDough.value].isSelected = true
         data.sizes[_selectedSize.value].isSelected = true
         data.quantity = 1
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             insertToCartUseCase.get().invoke(
                 data = data,
                 cost = pizzaCost,

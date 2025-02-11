@@ -61,4 +61,5 @@ dependencies {
     implementation(project(":features:orders:ui"))
     implementation(project(":features:profile:ui"))
     implementation(project(":features:pizza-detail:ui"))
+    implementation(project(":features:make-order:ui"))
 }

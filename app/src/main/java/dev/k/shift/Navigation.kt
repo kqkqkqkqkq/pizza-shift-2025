@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import dev.k.ui.cartScreenNavigation
+import dev.k.ui.makeOrderCardDataScreenNavigation
+import dev.k.ui.makeOrderUserDataScreenNavigation
 import dev.k.ui.ordersScreenNavigation
 import dev.k.ui.pizzaDetailNavigation
 import dev.k.ui.pizzaScreenNavigation
@@ -24,6 +26,8 @@ fun Navigation() {
             pizzaDetailNavigation(navController)
             ordersScreenNavigation(navController)
             cartScreenNavigation(navController)
+            makeOrderUserDataScreenNavigation(navController)
+            makeOrderCardDataScreenNavigation(navController)
         }
     }
 }

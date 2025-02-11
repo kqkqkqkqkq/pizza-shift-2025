@@ -11,28 +11,55 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowLeft
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import dev.k.features.cart.ui.R
 import dev.k.ui_kit.theme.PizzaTheme
 import dev.k.ui_logic.CartScreenViewModel
 import dev.k.ui_utils.models.PizzaUI
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CartItem(
-    viewModel: CartScreenViewModel,
     pizza: PizzaUI,
+    viewModel: CartScreenViewModel,
 ) {
+    var isBottomSheetVisible by rememberSaveable { mutableStateOf(false) }
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
+    val scope = rememberCoroutineScope()
+
+    var quantity by remember { mutableStateOf(pizza.quantity) }
+
+    var icon by remember { mutableStateOf(Icons.Outlined.Delete) }
+
+    icon = if (pizza.quantity <= 1) Icons.Outlined.Delete
+    else Icons.AutoMirrored.Rounded.KeyboardArrowLeft
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -80,6 +107,7 @@ fun CartItem(
             ) {
                 Row(
                     modifier = Modifier
+                        .wrapContentSize()
                         .height(24.dp)
                         .background(
                             shape = RoundedCornerShape(16.dp),
@@ -90,21 +118,35 @@ fun CartItem(
                     horizontalArrangement = Arrangement.Start,
                 ) {
                     IconButton(
-                        onClick = { /* Уменьшить количество */ }
+                        onClick = {
+                            if (quantity > 1) {
+                                viewModel.decreaseQuantity(pizza)
+                                quantity--
+                            }
+                            else {
+                                scope.launch {
+                                    isBottomSheetVisible = true
+                                    sheetState.expand()
+                                }
+                            }
+                        }
                     ) {
                         Icon(
-                            Icons.AutoMirrored.Rounded.KeyboardArrowLeft,
+                            icon,
                             tint = PizzaTheme.colorScheme.onSecondary,
                             contentDescription = "Decrease",
                         )
                     }
                     Text(
-                        text = pizza.quantity.toString(),
+                        text = quantity.toString(),
                         color = PizzaTheme.colorScheme.onBackground,
                         style = PizzaTheme.typography.bodySmall,
                     )
                     IconButton(
-                        onClick = { /* Увеличить количество */ }
+                        onClick = {
+                            viewModel.increaseQuantity(pizza)
+                            quantity++
+                        }
                     ) {
                         Icon(
                             Icons.AutoMirrored.Rounded.KeyboardArrowRight,
@@ -115,22 +157,32 @@ fun CartItem(
                 }
                 TextButton(
                     onClick = {
-
+                        TODO("Bottom sheet элемент для редактирования")
                     }
                 ) {
                     Text(
-                        text = "Изменить",
+                        text = stringResource(R.string.change),
                         color = PizzaTheme.colorScheme.secondary,
                         style = PizzaTheme.typography.bodyLarge,
                     )
                 }
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
-                    text = "${pizza.cost} ₽",
+                    text = "${pizza.cost * quantity} ₽",
                     color = PizzaTheme.colorScheme.onBackground,
                     style = PizzaTheme.typography.bodyLarge,
                 )
             }
         }
     }
+    DeleteBottomSheet(
+        pizza = pizza,
+        isBottomSheetVisible = isBottomSheetVisible,
+        sheetState = sheetState,
+        onDismiss = {
+            scope.launch { sheetState.hide() }
+                .invokeOnCompletion { isBottomSheetVisible = false }
+        },
+        viewModel = viewModel,
+    )
 }

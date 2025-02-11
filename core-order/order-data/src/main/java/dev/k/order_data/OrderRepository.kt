@@ -25,7 +25,7 @@ class OrderRepository @Inject constructor(
     }
 
     suspend fun deletePizzaFromCart(pizza: CartPizza) {
-        database.orderDao.removePizzaFromCart(pizza.toCartPizzaDBO())
+        database.orderDao.removePizzaFromCart(pizza.toCartPizzaDBO().cartPizzaId)
     }
 
     suspend fun makeOrder(order: Order, pizzaList: List<CartPizza>) {

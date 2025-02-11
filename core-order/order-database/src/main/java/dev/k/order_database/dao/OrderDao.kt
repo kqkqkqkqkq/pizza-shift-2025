@@ -34,11 +34,12 @@ interface OrderDao {
         insertOrderPizzaCrossRef(refs)
     }
 
-    @Insert
+    @Insert //TODO("добавлять в корзину нужно тогда,
+    // когда нет элемента с одинаковыми добавками/тестом/размером, если есть одинаковые, то нужно обновлять количество")
     suspend fun insertCartPizza(pizza: CartPizzaDBO)
 
-    @Delete
-    suspend fun removePizzaFromCart(pizza: CartPizzaDBO)
+    @Query("DELETE FROM cart WHERE cartPizzaId = :id") //TODO("fix: удаление по id не работает")
+    suspend fun removePizzaFromCart(id: Long)
 
     @Query("DELETE FROM orders")
     suspend fun cleanOrders()

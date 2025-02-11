@@ -1,0 +1,11 @@
+<resources>
+    <string name="last_name">Фамилия</string>
+    <string name="first_name">Имя</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="email">Электронная почта</string>
+    <string name="city">Город</string>
+    <string name="street">Улица</string>
+    <string name="house">Номер дома</string>
+    <string name="go_to_payment">Перейти к оплате</string>
+
+</resources>

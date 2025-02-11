@@ -4,4 +4,6 @@
     <string name="empty_cart">Ваша корзина пуста</string>
     <string name="make_order">Оформить заказ</string>
     <string name="order_cost">Стоимость заказа</string>
+    <string name="change">Изменить</string>
+    <string name="delete_message">Удалить из корзины</string>
 </resources>
