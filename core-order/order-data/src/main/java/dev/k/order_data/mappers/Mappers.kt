@@ -48,7 +48,8 @@ internal fun Order.toOrderDBO(): OrderDBO {
     )
 }
 
-internal fun CartPizza.toCartPizzaDBO(): CartPizzaDBO = //TODO("fix: не удаляются элементы, потому что разные id")
+internal fun CartPizza.toCartPizzaDBO(): CartPizzaDBO =
+    //TODO("fix: не удаляются элементы, потому что разные id")
     CartPizzaDBO(
         name = name,
         ingredients = joinCartPizzaIngredients(ingredients),

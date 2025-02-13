@@ -9,6 +9,11 @@ class DeleteFromCartUseCase @Inject constructor(
     private val repository: OrderRepository,
 ) {
     suspend operator fun invoke(pizza: PizzaUI) {
-        repository.deletePizzaFromCart(pizza.toCartPizza(cost = pizza.cost, quantity = pizza.quantity))
+        repository.deletePizzaFromCart(
+            pizza.toCartPizza(
+                cost = pizza.cost,
+                quantity = pizza.quantity
+            )
+        )
     }
 }

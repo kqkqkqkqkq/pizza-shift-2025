@@ -45,9 +45,9 @@ fun AdditionsBottomSheet(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(0.6f)
-                    .padding(8.dp),
+                    .padding(horizontal = 8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 Text(
                     text = stringResource(R.string.add_to_taste),

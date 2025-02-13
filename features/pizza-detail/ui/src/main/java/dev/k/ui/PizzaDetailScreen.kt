@@ -1,6 +1,9 @@
 package dev.k.ui
 
+import android.widget.Space
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,10 +15,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -30,6 +39,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -41,6 +51,7 @@ import dev.k.ui.components.DoughSelector
 import dev.k.ui.components.SizeSelector
 import dev.k.ui_kit.Destinations
 import dev.k.ui_kit.components.TopBar
+import dev.k.ui_kit.theme.Green
 import dev.k.ui_kit.theme.PizzaTheme
 import dev.k.ui_logic.PizzaDetailVewModel
 import dev.k.ui_utils.models.PizzaUI
@@ -85,7 +96,49 @@ internal fun PizzaDetailScreenUI(
             })
         },
         snackbarHost = {
-            SnackbarHost(hostState = snackbarHostState)
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 32.dp),
+                contentAlignment = Alignment.TopCenter,
+            ) {
+                SnackbarHost(
+                    hostState = snackbarHostState,
+                    snackbar = {
+                        Snackbar(
+                            modifier = Modifier
+                                .fillMaxWidth(0.9f)
+                                .border(
+                                    1.dp,
+                                    PizzaTheme.colorScheme.onBackground,
+                                    RoundedCornerShape(12.dp),
+                                ),
+                            shape = RoundedCornerShape(12.dp),
+                            containerColor = PizzaTheme.colorScheme.background,
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 12.dp),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Check,
+                                    tint = Green,
+                                    contentDescription = "SnackBar Icon",
+                                    modifier = Modifier.size(20.dp),
+                                )
+                                Text(
+                                    text = snackbarMessage,
+                                    style = PizzaTheme.typography.titleSmall,
+                                    color = PizzaTheme.colorScheme.onBackground,
+                                )
+                            }
+                        }
+                    }
+                )
+            }
         }
     ) { padding ->
         Column(
@@ -204,16 +257,17 @@ internal fun PizzaDetailScreenUI(
                     )
                 }
             }
-            AdditionsBottomSheet(
-                viewModel = viewModel,
-                additives = pizza.toppings,
-                isBottomSheetVisible = isBottomSheetVisible,
-                sheetState = sheetState,
-                onDismiss = {
-                    scope.launch { sheetState.hide() }
-                        .invokeOnCompletion { isBottomSheetVisible = false }
-                }
-            )
         }
     }
+
+    AdditionsBottomSheet(
+        viewModel = viewModel,
+        additives = pizza.toppings,
+        isBottomSheetVisible = isBottomSheetVisible,
+        sheetState = sheetState,
+        onDismiss = {
+            scope.launch { sheetState.hide() }
+                .invokeOnCompletion { isBottomSheetVisible = false }
+        }
+    )
 }

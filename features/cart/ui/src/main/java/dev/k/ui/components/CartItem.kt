@@ -20,6 +20,7 @@ import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -41,16 +42,13 @@ import dev.k.ui_logic.CartScreenViewModel
 import dev.k.ui_utils.models.PizzaUI
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CartItem(
     pizza: PizzaUI,
     viewModel: CartScreenViewModel,
+    snackbarHostState: SnackbarHostState,
 ) {
-    var isBottomSheetVisible by rememberSaveable { mutableStateOf(false) }
-    val sheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true
-    )
+    val snackBarMessage = stringResource(R.string.delete_message)
     val scope = rememberCoroutineScope()
 
     var quantity by remember { mutableStateOf(pizza.quantity) }
@@ -122,11 +120,9 @@ fun CartItem(
                             if (quantity > 1) {
                                 viewModel.decreaseQuantity(pizza)
                                 quantity--
-                            }
-                            else {
+                            } else {
                                 scope.launch {
-                                    isBottomSheetVisible = true
-                                    sheetState.expand()
+                                    snackbarHostState.showSnackbar(snackBarMessage)
                                 }
                             }
                         }
@@ -175,14 +171,4 @@ fun CartItem(
             }
         }
     }
-    DeleteBottomSheet(
-        pizza = pizza,
-        isBottomSheetVisible = isBottomSheetVisible,
-        sheetState = sheetState,
-        onDismiss = {
-            scope.launch { sheetState.hide() }
-                .invokeOnCompletion { isBottomSheetVisible = false }
-        },
-        viewModel = viewModel,
-    )
 }
