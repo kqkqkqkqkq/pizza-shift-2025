@@ -1,7 +1,6 @@
 package dev.k.order_database.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
@@ -34,11 +33,13 @@ interface OrderDao {
         insertOrderPizzaCrossRef(refs)
     }
 
-    @Insert //TODO("добавлять в корзину нужно тогда,
-    // когда нет элемента с одинаковыми добавками/тестом/размером, если есть одинаковые, то нужно обновлять количество")
+    @Query("UPDATE cart SET quantity = quantity + 1 WHERE cartPizzaId = :id")
+    suspend fun updatePizzaInCartQuantity(id: Long)
+
+    @Insert
     suspend fun insertCartPizza(pizza: CartPizzaDBO)
 
-    @Query("DELETE FROM cart WHERE cartPizzaId = :id") //TODO("fix: удаление по id не работает")
+    @Query("DELETE FROM cart WHERE cartPizzaId = :id")
     suspend fun removePizzaFromCart(id: Long)
 
     @Query("DELETE FROM orders")

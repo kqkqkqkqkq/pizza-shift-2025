@@ -121,6 +121,7 @@ fun CartItem(
                                 viewModel.decreaseQuantity(pizza)
                                 quantity--
                             } else {
+                                viewModel.deleteFromCart(pizza)
                                 scope.launch {
                                     snackbarHostState.showSnackbar(snackBarMessage)
                                 }
