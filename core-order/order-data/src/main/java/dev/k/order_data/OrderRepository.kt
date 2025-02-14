@@ -43,10 +43,14 @@ class OrderRepository @Inject constructor(
         val cart = database.orderDao.getCart().map { it.cartPizzaId to it.toCartPizza() }
         val identity = mutableListOf<Pair<Long, CartPizza>>()
         cart.forEach {
-                if (it.second.name == pizza.name && checkSize(it.second.sizes, pizza.sizes)
-                    && checkDough(it.second.doughs, pizza.doughs) && checkTopping(it.second.toppings, pizza.toppings))
-                        identity.add(it)
-            }
+            if (it.second.name == pizza.name && checkSize(it.second.sizes, pizza.sizes)
+                && checkDough(it.second.doughs, pizza.doughs) && checkTopping(
+                    it.second.toppings,
+                    pizza.toppings
+                )
+            )
+                identity.add(it)
+        }
         Log.e("Repository", identity.toString())
         return identity
     }
@@ -58,14 +62,20 @@ class OrderRepository @Inject constructor(
         return true
     }
 
-    private fun checkDough(cartDoughs: List<CartPizzaDough>, doughs: List<CartPizzaDough>): Boolean {
+    private fun checkDough(
+        cartDoughs: List<CartPizzaDough>,
+        doughs: List<CartPizzaDough>
+    ): Boolean {
         for (i in cartDoughs.indices)
             if (cartDoughs[i].isSelected != doughs[i].isSelected)
                 return false
         return true
     }
 
-    private fun checkTopping(cartToppings: List<CartPizzaIngredient>, toppings: List<CartPizzaIngredient>): Boolean {
+    private fun checkTopping(
+        cartToppings: List<CartPizzaIngredient>,
+        toppings: List<CartPizzaIngredient>
+    ): Boolean {
         for (i in cartToppings.indices)
             if (cartToppings[i].isSelected != toppings[i].isSelected)
                 return false

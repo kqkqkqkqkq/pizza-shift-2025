@@ -1,8 +1,6 @@
 package dev.k.ui
 
-import android.widget.Space
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,11 +15,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Snackbar
@@ -39,7 +35,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -47,8 +42,8 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import dev.k.features.pizza_detail.ui.R
 import dev.k.ui.components.AdditionsBottomSheet
-import dev.k.ui.components.DoughSelector
-import dev.k.ui.components.SizeSelector
+import dev.k.ui.components.Selector
+import dev.k.ui.components.SelectorDataTypes
 import dev.k.ui_kit.Destinations
 import dev.k.ui_kit.components.TopBar
 import dev.k.ui_kit.theme.Green
@@ -176,13 +171,15 @@ internal fun PizzaDetailScreenUI(
                 color = PizzaTheme.colorScheme.secondary,
                 style = PizzaTheme.typography.bodyLarge,
             )
-            SizeSelector(
-                sizes = pizza.sizes,
+            Selector(
+                data = pizza.sizes.map { it.name to it.price },
+                dataType = SelectorDataTypes.SIZE,
                 selectedIndex = selectedSize,
                 onOptionSelected = { viewModel.selectSize(it) }
             )
-            DoughSelector(
-                doughs = pizza.doughs,
+            Selector(
+                data = pizza.doughs.map { it.name to it.price },
+                dataType = SelectorDataTypes.DOUGH,
                 selectedIndex = selectedDough,
                 onOptionSelected = { viewModel.selectDough(it) }
             )
