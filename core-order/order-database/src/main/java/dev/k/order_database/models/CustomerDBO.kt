@@ -8,5 +8,5 @@ data class CustomerDBO(
     val country: String,
     val city: String,
     val street: String,
-    val house: Int,
+    val house: String,
 )

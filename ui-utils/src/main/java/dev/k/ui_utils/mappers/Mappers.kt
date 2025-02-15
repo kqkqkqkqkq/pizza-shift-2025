@@ -1,7 +1,9 @@
 package dev.k.ui_utils.mappers
 
 import dev.k.order_data.models.CartPizza
+import dev.k.order_data.models.Customer
 import dev.k.pizza_data.models.Pizza
+import dev.k.ui_utils.models.CustomerUI
 import dev.k.ui_utils.models.PizzaUI
 
 fun Pizza.toPizzaUI(): PizzaUI =
@@ -92,4 +94,28 @@ fun CartPizza.toPizzaUI() =
         img = img,
         quantity = quantity,
         cost = cost,
+    )
+
+fun Customer.toCustomerUI(): CustomerUI =
+    CustomerUI(
+        name = name,
+        lastName = lastName,
+        phoneNumber = phoneNumber,
+        email = email,
+        country = country,
+        city = city,
+        street = street,
+        house = house,
+    )
+
+fun CustomerUI.toCustomer(): Customer =
+    Customer(
+        name = name,
+        lastName = lastName,
+        phoneNumber = phoneNumber,
+        email = email,
+        country = country,
+        city = city,
+        street = street,
+        house = house,
     )
